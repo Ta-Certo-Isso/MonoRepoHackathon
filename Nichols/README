@@ -77,10 +77,6 @@ Não tente indexar o mundo. Para o MVP:
   - [x] Webhook recebe mensagem "Oi".
   - [x] Responde com texto fixo.
   - [x] Responde convertendo texto para áudio.
-
-<!-- end list -->
-
-````
 -----
 
 ## Setup rapido do Bot (FastAPI + Evolution API)
@@ -146,3 +142,4 @@ uvicorn Nichols.main:app --host 0.0.0.0 --port 8000 --reload
 2. Criar Deploy Hook no Render e setar o secret `RENDER_DEPLOY_HOOK_URL` no GitHub.
 3. Subir `.txt` em `DATA_DIR` (1ª linha = título) para o RAG.
 4. Subir Evolution (docker-compose) e conectar instância; testar com `/api/ask` e com webhook real.
+
