@@ -1,84 +1,86 @@
 # 📢 Montoya: O Motor de Engajamento (Ativação)
 
-> **Responsável:** Montoya
+> **Responsável:** Montoya  
 > **Missão:** "Quebrar a apatia". Monitorar o caos legislativo, filtrar o que importa e transformar em conteúdo viral para trazer o usuário para a plataforma.
 
 ## 🎯 Objetivo do Módulo
 O `montoya` não espera o usuário perguntar. Ele ativamente busca informações públicas, simplifica a linguagem (estilo "fofoca cívica") e prepara o terreno para o disparo de mensagens.
 
-### 🔗 Conexão com Regras de Negócio
-* **Interesse Pelo Bolso:** O algoritmo deve priorizar notícias sobre dinheiro (impostos, benefícios, preços).
-* **Human-in-the-loop:** A IA cria, o humano valida. Isso garante nota máxima em "Responsabilidade da IA".
-* **Viabilidade:** Gera o conteúdo UMA vez para impactar MILHÕES (1-to-N), economizando tokens.
+---
+
+## 🛠 Estrutura do Projeto
+
+### Coletores por Nível
+
+- **`coletor_federal_camara.py`** - Coleta proposições da Câmara dos Deputados (API)
+- **`coletor_federal_senado.py`** - Coleta proposições do Senado Federal (API)
+- **`coletor_estadual.py`** - Coleta notícias sobre ALESP via Google Search
+- **`coletor_municipal.py`** - Coleta notícias sobre câmaras municipais do Vale do Paraíba
+
+### Scrapers
+
+- **`scraper_noticias.py`** - Scraper genérico de notícias usando Google Custom Search API
+
+### Orquestrador
+
+- **`coletor_principal.py`** - Orquestra a coleta de todas as fontes em paralelo
 
 ---
 
-## 🛠 Especificação Técnica
+## 🚀 Como Usar
 
-### Stack
-* **Linguagem:** Python (Scripts autônomos).
-* **Agendamento:** Lib `schedule` ou Cron simples.
-* **Fontes de Dados:** API Dados Abertos (Câmara), RSS Feeds (Senado), NewsAPI.
-* **LLM:** GPT-4o (Focado em Summarization e Copywriting).
+### Instalação
 
-### 🌊 Fluxo de Dados (Pipeline)
+```bash
+pip install -r requirements.txt
+```
 
-```mermaid
-graph TD
-    subgraph "Coleta (Ingestion)"
-        A[API Câmara] -->|JSON Bruto| B["Script Coletor"]
-        C[Google News] -->|Manchetes| B
-    end
+### Configuração
 
-    subgraph "Processamento (IA Editora)"
-        B -->|Filtra Top 3 Tópicos| D{É Polêmico?}
-        D -->|Sim| E["GPT-4o: Resumir e Simplificar"]
-        E -->|Prompt: 'Explique para adolescente'| F["Gera Texto + Roteiro de Áudio"]
-    end
+1. Coloque suas credenciais do Google Custom Search API em `google-credentials.json`
+2. Ajuste os parâmetros no `coletor_principal.py` (DIAS_ATRAS, LIMITE_POR_FONTE, etc.)
 
-    subgraph "Validação & Saída"
-        F --> G["Envia para Grupo Admin (Telegram/WPP)"]
-        G --> H{Admin Aprovou?}
-        H -->|Sim| I["Salva no Banco de Conteúdos"]
-        H -->|Sim| J["Dispara Trigger para Broadcast"]
-        H -->|Não| K[Descarta]
-    end
-````
+### Execução
 
-### 🧠 Detalhes de Implementação
+```bash
+python coletor_principal.py
+```
 
-#### 1\. O Filtro de Relevância
+Os resultados serão salvos em `resultados_coleta.json`.
 
-Não queremos saber de "Dia do Macarrão". O script deve buscar keywords:
-`['imposto', 'aumento', 'benefício', 'transporte', 'educação', 'saúde']`.
+---
 
-#### 2\. A "Isca" (Hook)
+## 📊 Estrutura de Dados
 
-O output da IA deve sempre terminar com uma pergunta que leva ao módulo `nichols`:
-
-  * *Exemplo Gerado:* "O deputado X votou pra aumentar seu IPVA. Quer saber quanto você vai pagar a mais? Responda **CALCULAR**."
-
-#### 3\. Estrutura do JSON de Saída
-
-O `montoya` deve gerar um arquivo (ou entrada no DB) que o `nichols` e o `leli` possam ler:
+O coletor gera um JSON com a seguinte estrutura:
 
 ```json
 {
-  "id": "news_123",
-  "topic": "IPVA",
-  "headline": "Vão aumentar o imposto do carro!",
-  "content_text": "Texto curto explicativo...",
-  "audio_script": "Oi pessoal, notícia urgente...",
-  "source_link": "[https://camara.leg.br/](https://camara.leg.br/)...",
-  "call_to_action": "CALCULAR"
+  "resumo": {
+    "data_coleta": "2025-11-22T...",
+    "total_geral": 19,
+    "total_por_fonte": {
+      "federal_camara": 5,
+      "federal_senado": 0,
+      "estadual_alesp": 10,
+      "municipal": 4
+    }
+  },
+  "dados": {
+    "federal_camara": [...],
+    "federal_senado": [...],
+    "estadual_alesp": [...],
+    "municipal": [...]
+  }
 }
 ```
 
------
+---
 
-## ✅ Definition of Done (DoD) - Dia 1
+## 📝 Fontes de Dados
 
-  - [ ] Script roda, bate na API da Câmara e traz o título de 1 lei recente.
-  - [ ] GPT gera um resumo de 1 parágrafo dessa lei.
-  - [ ] Imprime esse resumo no terminal.
+- **Federal (Câmara):** API Dados Abertos da Câmara dos Deputados
+- **Federal (Senado):** API Dados Abertos do Senado Federal
+- **Estadual (ALESP):** Google Search em sites confiáveis (G1, Folha, Estadão, etc.)
+- **Municipal:** Google Search em sites confiáveis sobre câmaras municipais do Vale do Paraíba
 

@@ -1,0 +1,248 @@
+{
+  "resumo": {
+    "data_coleta": "2025-11-22T05:12:44.864605",
+    "total_geral": 19,
+    "total_por_fonte": {
+      "federal_camara": 5,
+      "federal_senado": 0,
+      "estadual_alesp": 10,
+      "municipal": 4
+    },
+    "fontes_funcionando": [
+      "federal_camara",
+      "estadual_alesp",
+      "municipal"
+    ]
+  },
+  "dados": {
+    "federal_camara": [
+      {
+        "id": 2586691,
+        "uri": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/2586691",
+        "siglaTipo": "PL",
+        "codTipo": 139,
+        "numero": 5922,
+        "ano": 2025,
+        "ementa": "Dispõe sobre o Consentimento Livre e Esclarecido nas relações de prestação de serviços de saúde no âmbito público e privado.",
+        "dataApresentacao": "2025-11-19T15:04",
+        "fonte": "camara_deputados",
+        "nivel": "federal",
+        "tipo_coleta": "api"
+      },
+      {
+        "id": 2586689,
+        "uri": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/2586689",
+        "siglaTipo": "PL",
+        "codTipo": 139,
+        "numero": 5921,
+        "ano": 2025,
+        "ementa": "Institui o Seguro de Carreira para os profissionais da educação pública, cria o Fundo de Seguro de Carreira da Educação (FSCE), a ser gerido pelo Fundo Nacional de Desenvolvimento da Educação (FNDE), e altera a Lei nº 9.394, de 20 de dezembro de 1996.",
+        "dataApresentacao": "2025-11-19T14:56",
+        "fonte": "camara_deputados",
+        "nivel": "federal",
+        "tipo_coleta": "api"
+      },
+      {
+        "id": 2586678,
+        "uri": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/2586678",
+        "siglaTipo": "PL",
+        "codTipo": 139,
+        "numero": 5916,
+        "ano": 2025,
+        "ementa": "Dispõe sobre a obrigatoriedade da realização do exame de glicemia capilar durante a triagem ou pré-consulta nas unidades de saúde públicas e privadas, e dá outras providências.",
+        "dataApresentacao": "2025-11-19T13:58",
+        "fonte": "camara_deputados",
+        "nivel": "federal",
+        "tipo_coleta": "api"
+      },
+      {
+        "id": 2586669,
+        "uri": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/2586669",
+        "siglaTipo": "PL",
+        "codTipo": 139,
+        "numero": 5915,
+        "ano": 2025,
+        "ementa": "Institui o Seguro de Carreira para os profissionais de saúde vinculados ao Sistema Único de Saúde (SUS), cria o Fundo de Seguro de Carreira da Saúde (FSCS), a ser custeado com recursos do Fundo Nacional de Saúde (FNS), e altera a Lei nº 8.080, de 19 de setembro de 1990.",
+        "dataApresentacao": "2025-11-19T13:29",
+        "fonte": "camara_deputados",
+        "nivel": "federal",
+        "tipo_coleta": "api"
+      },
+      {
+        "id": 2586661,
+        "uri": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/2586661",
+        "siglaTipo": "PL",
+        "codTipo": 139,
+        "numero": 5914,
+        "ano": 2025,
+        "ementa": "Dispõe sobre o uso compartilhado e comunitário dos veículos de transporte escolar e dos espaços físicos das escolas públicas, e dá outras providências.",
+        "dataApresentacao": "2025-11-19T11:44",
+        "fonte": "camara_deputados",
+        "nivel": "federal",
+        "tipo_coleta": "api"
+      }
+    ],
+    "estadual_alesp": [
+      {
+        "titulo": "Alesp aprova fusão de fundação com o Instituto Butantan - 12/11 ...",
+        "link": "https://www1.folha.uol.com.br/equilibrioesaude/2025/11/alesp-aprova-fusao-da-fundacao-para-o-remedio-popular-com-instituto-butantan.shtml",
+        "descricao": "Nov 11, 2025 ... A Alesp (Assembleia Legislativa do Estado de São Paulo) aprovou, na terça-feira (11), o projeto de lei que extingue a Furp (Fundação para o ...",
+        "conteudo": "dê um conteúdo benefício do assinante Você tem 7 acessos por dia para dar de presente. Qualquer pessoa que não é assinante poderá ler. benefício do assinante Assinantes podem liberar 7 acessos por dia para conteúdos da Folha. Já é assinante? Faça seu login ASSINE A FOLHA Copiar link Salvar para ler depois Salvar artigos Recurso exclusivo para assinantes assine ou faça login 12.nov.2025 às 17h09 Atualizado: 12.nov.2025 às 17h53 Ouvir o texto Diminuir fonte Aumentar fonte São Paulo A Alesp (Assembleia Legislativa do Estado de São Paulo) aprovou, na terça-feira (11), o projeto de lei que extingue a Furp (Fundação para o Remédio Popular \"Chopin Tavares de Lima\") e transfere suas atribuições para o Instituto Butantan . A nova estrutura será denominada Butantan Farma. A fusão, elaborada pelo governo estadual, tem como objetivo principal sanar o déficit financeiro da Furp e modernizar a produção de medicamentos destinados ao SUS (Sistema Único de Saúde ) e à rede estadual. A meta é expandir o portfólio de medicamentos estratégicos dos atuais 30 para 100 produtos nos próximos anos. Questionada pela reportagem, a Furp não se posicionou até a publicação desta matéria. Em nota, o Instituto Butantan afirmou que a iniciativa visa promover e ampliar o acesso à saúde em todo o Brasil. O Instituto Butantan terá complexo industrial - Karime Xavier - 1.mai.25/Folhapress O diretor do instituto, Esper Kallás , afirmou que \"com a enorme experiência da Furp e seu parque produtivo, somados ao conhecimento e à capacidade do Instituto Butantan em diferentes frentes, como pesquisa, inovação e produção, será possível fortalecer ainda mais o papel do Butantan. É um projeto que vem sendo cuidadosamente elaborado nos últimos dois anos\". O Instituto Butantan atualmente produz vacinas contra gripe ( influenza ), hepatite A e B, HPV , raiva e DTPa, além de 12 tipos de soros e anticorpos monoclonais, como o adalimumabe, usado no tratamento de diversas doenças inflamatórias crônicas graves. Ampliação",
+        "data": "2025-11-12",
+        "fonte": "alesp",
+        "nivel": "estadual",
+        "tipo_coleta": "google_search",
+        "ementa": "Nov 11, 2025 ... A Alesp (Assembleia Legislativa do Estado de São Paulo) aprovou, na terça-feira (11), o projeto de lei que extingue a Furp (Fundação para o ..."
+      },
+      {
+        "titulo": "Governo de SP sanciona lei sobre carreira de pesquisadores, que ...",
+        "link": "https://agro.estadao.com.br/agropolitica/governo-de-sp-sanciona-lei-sobre-carreira-de-pesquisadores-que-confirmam-ida-a-justica",
+        "descricao": "Nov 3, 2025 ... As polêmicas começaram em abril, quando o governo enviou à Assembleia Legislativa (Alesp), em regime de urgência, o Projeto de Lei ...",
+        "conteudo": "Agropolítica Governo de SP sanciona lei sobre carreira de pesquisadores, que confirmam ida à Justiça Segundo associação que representa os pesquisadores, medida pode comprometer todo o sistema de ciência e tecnologia do Estado Igor Savenhago | Ribeirão Preto (SP) 04/11/2025 - 19:09 Carreira de pesquisador científico foi criada em São Paulo em 1975. Foto: Adobe Stock O governador de São Paulo, Tarcísio Gomes de Freitas, sancionou a Lei Complementar 1435/2025, que promove mudanças na carreira dos pesquisadores científicos do Estado ligados a instituições de Saúde, Meio Ambiente e Agropecuária. A decisão foi publicada no Diário Oficial desta segunda-feira, 3. Leia mais: ApexBrasil qualificará 1.825 empresas na capital e interior de SP para exportar Governo de SP investe R$ 4 milhões para reforçar combate ao greening Semana tem alerta de temporais no centro-sul do Brasil A sanção é mais um capítulo de uma disputa polêmica envolvendo o Executivo estadual e a Associação dos Pesquisadores Científicos de São Paulo ( APqC ), que confirmou, nesta terça, 4, por meio de sua assessoria de imprensa, que vai recorrer à Justiça para questionar a medida. CONTEÚDO PATROCINADO As polêmicas começaram em abril, quando o governo enviou à Assembleia Legislativa (Alesp), em regime de urgência, o Projeto de Lei Complementar (PLC) 9/2025, prevendo nova forma de remuneração – que, para os pesquisadores ingressantes, passa a ser por subsídio, sem gratificações por tempo de serviço. Também está prevista a extinção do regime especial de dedicação exclusiva, estabelecendo carga horária máxima de 40 horas semanais, e a substituição da Comissão Permanente do Regime de Tempo Integral (CPRTI), responsável pela condução das carreiras e composta por representantes eleitos pelos próprios pesquisadores, pela Comissão Permanente de Avaliação de Desempenho e Desenvolvimento, que terá os membros designados pelo governador. Segundo a APqC, a lei, aprovada pela Alesp no dia 14 de outubro , é arbitrária, foi co",
+        "data": "2025-11-04",
+        "fonte": "alesp",
+        "nivel": "estadual",
+        "tipo_coleta": "google_search",
+        "ementa": "Nov 3, 2025 ... As polêmicas começaram em abril, quando o governo enviou à Assembleia Legislativa (Alesp), em regime de urgência, o Projeto de Lei ..."
+      },
+      {
+        "titulo": "Assembleia Legislativa: notícias sobre o poder legislativo estadual ...",
+        "link": "https://www1.folha.uol.com.br/folha-topicos/assembleia-legislativa/",
+        "descricao": "Oct 16, 2025 ... Gestão diz que os 6 que votam com governador na Alesp ficaram de fora por questões administrativas ... Projeto de lei tramita na Assembleia Legislativa em caráter ...",
+        "conteudo": "Curitiba Compartilhar Vídeo mostra deputado Renato Freitas trocando socos com homem em rua de Curitiba Ícone fechar Salvar para ler depois Salvar artigos Ícone de fechar Recurso exclusivo para assinantes assine ou faça login Vídeo mostra deputado Renato Freitas trocando socos com homem em rua de Curitiba Petista diz que foi agredido e revidou, mas que não sente orgulho da briga; ele afirma ter quebrado o nariz 19.nov.2025 às 15h56 Consciência Negra Compartilhar 'Não fiz nada de mais, Deus que me deu emoção', diz Leci Brandão, homenageada no Troféu Raça Negra Ícone fechar Salvar para ler depois Salvar artigos Ícone de fechar Recurso exclusivo para assinantes assine ou faça login 'Não fiz nada de mais, Deus que me deu emoção', diz Leci Brandão, homenageada no Troféu Raça Negra 25ª edição do prêmio celebra 81 anos de vida e 51 de carreira da cantora e deputada estadual 18.nov.2025 às 22h04 Governo Tarcísio Compartilhar Governo Tarcísio deixa deputados aliados sem emenda e gera incômodo na base Ícone fechar Salvar para ler depois Salvar artigos Ícone de fechar Recurso exclusivo para assinantes assine ou faça login Governo Tarcísio deixa deputados aliados sem emenda e gera incômodo na base Gestão diz que os 6 que votam com governador na Alesp ficaram de fora por questões administrativas 31.out.2025 às 17h35 Rio de Janeiro Compartilhar Cláudio Castro sanciona lei que endurece critérios para saídas temporárias no RJ Ícone fechar Salvar para ler depois Salvar artigos Ícone de fechar Recurso exclusivo para assinantes assine ou faça login Cláudio Castro sanciona lei que endurece critérios para saídas temporárias no RJ Medida considera periculosidade e vínculo com facções criminosas para autorizar benefícios 17.out.2025 às 21h58 Painel Compartilhar Assembleia de SP aprova projeto que acrescenta nome de ex-governador à rodovia dos Bandeirantes Ícone fechar Salvar para ler depois Salvar artigos Ícone de fechar Recurso exclusivo para assinantes assine ou faça login Assembleia de ",
+        "data": "",
+        "fonte": "alesp",
+        "nivel": "estadual",
+        "tipo_coleta": "google_search",
+        "ementa": "Oct 16, 2025 ... Gestão diz que os 6 que votam com governador na Alesp ficaram de fora por questões administrativas ... Projeto de lei tramita na Assembleia Legislativa em caráter ..."
+      },
+      {
+        "titulo": "Rodovia dos Bandeirantes terá nome de Paulo Egydio Martins",
+        "link": "https://g1.globo.com/sp/sao-paulo/noticia/2025/10/16/alesp-aprova-projeto-que-da-nome-do-ex-governador-paulo-egydio-martins-a-rodovia-dos-bandeirantes.ghtml",
+        "descricao": "Oct 15, 2025 ... A Assembleia Legislativa de São Paulo (Alesp) aprovou, durante sessão nesta quarta-feira (15), o projeto de lei que acrescenta o nome do ex ...",
+        "conteudo": "1 de 2 Rodovia dos Bandeirantes liga a capital paulista ao interior — Foto: CCR Autoban Rodovia dos Bandeirantes liga a capital paulista ao interior — Foto: CCR Autoban A Assembleia Legislativa de São Paulo (Alesp) aprovou, durante sessão nesta quarta-feira (15), o projeto de lei que acrescenta o nome do ex-governador Paulo Egydio Martins à Rodovia dos Bandeirantes (SP-348), via que liga a capital paulista ao interior de São Paulo. A proposta, de autoria do deputado estadual Capitão Telhada (PP), foi encaminhada à sanção do governador Tarcísio de Freitas (Republicanos). Apresentado em 9 de novembro de 2023, o projeto propõe que a via passe a se chamar “Rodovia dos Bandeirantes – Governador Paulo Egydio Martins”. Paulo Egydio governou o estado entre 1975 e 1979. Ele morreu aos 92 anos em 12 de fevereiro de 2021 (veja mais abaixo). A homenagem reconhece o ex-governador, responsável pela inauguração da própria Bandeirantes e de outras obras marcantes, como a pista ascendente da Rodovia dos Imigrantes, o Hospital Universitário da USP, o Instituto do Coração (InCor) e a Unesp. O texto destaca que a SP-348 é uma das rodovias mais importantes e bem conservadas do país, com papel relevante na economia e no turismo, conectando regiões industriais e abrigando grandes parques \"Possui grande importância comercial, pois, em conjunto com o Rodoanel Mário Covas e a Rodovia Anchieta, atua como elo entre dois dos maiores polos de importação e exportação do país: a Aeroporto Internacional de Viracopos e o Porto de Santos. É também junto com a Rodovia Anhanguera o maior corredor financeiro do país, pois liga as duas regiões metropolitanas mais ricas do estado, e do Brasil\", disse o deputado, na proposta. E finalizou: \"A competência para a iniciativa deste projeto de lei encontra amparo nos artigos 21 e 24 da Constituição do Estado, bem como no artigo 146, inciso III de nosso Regimento Interno. Destarte, pela importância do governador Paulo Egydio Martins para a história da rodovia SP-",
+        "data": "",
+        "fonte": "alesp",
+        "nivel": "estadual",
+        "tipo_coleta": "google_search",
+        "ementa": "Oct 15, 2025 ... A Assembleia Legislativa de São Paulo (Alesp) aprovou, durante sessão nesta quarta-feira (15), o projeto de lei que acrescenta o nome do ex ..."
+      },
+      {
+        "titulo": "Mudança na carreira de pesquisadores: associação irá à Justiça ...",
+        "link": "https://g1.globo.com/sp/sao-paulo/noticia/2025/10/15/mudanca-na-carreira-de-pesquisadores-associacao-ira-a-justica-contra-lei-de-tarcisio-aprovada-na-alesp.ghtml",
+        "descricao": "Oct 14, 2025 ... Projeto de lei complementar que altera a carreira de pesquisador ... Fachada Alesp Assembléia Legislativa do Estado de São paulo — Foto ...",
+        "conteudo": "ALESP aprova mudanças nas carreiras de pesquisadores públicos A Associação dos Pesquisadores Científicos do Estado de São Paulo (APqC) anunciou na noite desta terça-feira (14) que vai ingressar na Justiça com ação contra a lei complementar aprovada na Assembleia Legislativa de São Paulo (Alesp) que muda a carreira de pesquisador científico no estado. O texto proposto pelo governador Tarcísio de Freitas ( Republicanos ) foi aprovado com o número mínimo de 48 votos a favor, depois que dois deputados da base do governo alteraram seus votos de não para sim --Thiago Auricchio (PL) e Sebastião Santos (Republicanos). Para entrar em vigor, ainda depende de sanção do governador, que tem prazo de 15 dias. O que prevê a proposta: 👉 O texto acaba com o regime de tempo integral dos cientistas do estado, referência na produção de conhecimento nos institutos e universidades públicas 👉 O projeto cria ainda 18 níveis de progressão de carreira do grupo , que atualmente tem seis etapas até chegarem no topo da profissão. Para a entidade, essa fragmentação vai tornar a carreira menos atrativa . Atualmente, 914 cientistas atuam em 16 institutos públicos de pesquisa em São Paulo, como o Instituto Butantan, o Instituto Adolfo Lutz e o Instituto Biológico. Para a APqC, o projeto representa um “desmonte no sistema de ciência e tecnologia do Estado, desestruturando a profissão e os institutos estaduais que têm esse tipo de profissionais”. ✅ Clique aqui para se inscrever no canal do g1 SP no WhatsApp “Diante da aprovação, iremos entrar com uma ação na Justiça, porque as pesquisas públicas estão ameaçadas e a sociedade será duramente afetada”, afirma Helena Dutra Lutgens, presidente da APqC. \"Muitos institutos de pesquisa já lutam para manter suas linhas de trabalho ativas por falta de servidores. Fragmentar ainda mais a carreira vai torná-la menos atrativa e empurrar a pesquisa pública paulista para um processo inevitável de enfraquecimento\", comenta Lutgens. É uma medida extremamente arbitrár",
+        "data": "",
+        "fonte": "alesp",
+        "nivel": "estadual",
+        "tipo_coleta": "google_search",
+        "ementa": "Oct 14, 2025 ... Projeto de lei complementar que altera a carreira de pesquisador ... Fachada Alesp Assembléia Legislativa do Estado de São paulo — Foto ..."
+      },
+      {
+        "titulo": "Líder do PL na Alesp é aprovado novo conselheiro do TCE; é a ...",
+        "link": "https://g1.globo.com/sp/sao-paulo/noticia/2025/11/18/lider-do-pl-na-alesp-e-aprovado-novo-conselheiro-do-tce-e-a-quarta-troca-no-orgao-na-gestao-tarcisio.ghtml",
+        "descricao": "3 days ago ... No município, foi vereador de 2005 a 2010. É deputado estadual desde 2011, atualmente em seu quarto mandato. Na Alesp, já foi líder de governo, ...",
+        "conteudo": "Os deputados estaduais da Alesp (Assembleia Legislativa de São Paulo ) aprovaram nesta terça-feira (18) a indicação de Carlos Cezar, líder do PL na Casa, para a vaga de conselheiro do TCE (Tribunal de Contas do Estado). Cezar é a quarta indicação durante o governo de Tarcísio de Freitas ( Republicanos ), o que significa que a maioria dos conselheiros —4 de 7— foram nomeadas em seu mandato. O TCE é um órgão auxiliar do Legislativo, e tem entre suas funções fiscalizar contratos públicos, as contas do governo do Estado e de 644 municípios —todos, exceto a capital, que possui tribunal de contas próprio. Cezar assumirá a vaga de Sidney Beraldo, que atinge a idade limite do serviço público (75 anos) no fim do mês. 1 de 3 Carlos Cezar agradece aos colegas deputados durante sessão que aprovou sua indicação ao TCE-SP — Foto: Rodrigo Costa/Alesp Carlos Cezar agradece aos colegas deputados durante sessão que aprovou sua indicação ao TCE-SP — Foto: Rodrigo Costa/Alesp O parlamentar será portanto o único deputado estadual nomeado no período, superando colegas que estiveram na briga por vagas anteriores, como o atual líder do governo, Gilmaci Santos (Republicanos), e Ricardo Madalena (PL). É apenas a segunda vez na história que um deputado estadual em exercício é indicado para o TCE —o primeiro foi Eduardo Bittencourt, conselheiro de 1990 até 2011. Os outros três conselheiros que assumiram um posto no TCE neste governo foram: Marco Bertaiolli , então deputado federal pelo PSD , nome apoiado pelo presidente do PL Valdemar Costa Neto e pelo presidente do PSD, o secretário de governo de Tarcísio, Gilberto Kassab ; Maxwell Borges Vieira , indicação do ministro do Supremo Tribunal Federal, André Mendonça; Wagner Rosário , ex-ministro da CGU (Controladoria Geral da União) no governo Bolsonaro e então controlador geral do estado. A aprovação de Carlos Cezar chama atenção pelo contraste com a do indicado anterior, Wagner Rosário, que levou três semanas para ter sua indicação aprovada em ",
+        "data": "",
+        "fonte": "alesp",
+        "nivel": "estadual",
+        "tipo_coleta": "google_search",
+        "ementa": "3 days ago ... No município, foi vereador de 2005 a 2010. É deputado estadual desde 2011, atualmente em seu quarto mandato. Na Alesp, já foi líder de governo, ..."
+      },
+      {
+        "titulo": "Com apoio do PT, Alesp aprova deputado bolsonarista para TCE",
+        "link": "https://noticias.uol.com.br/politica/ultimas-noticias/2025/11/18/com-apoio-do-pt-alesp-aprova-indicacao-de-deputado-bolsonarista-para-tce.amp.htm",
+        "descricao": "3 days ago ... Com apoio do PT, Alesp aprova deputado bolsonarista ... A Alesp (Assembleia Legislativa de São Paulo) aprovou o nome do deputado estadual ...",
+        "conteudo": "Ida de Carlos Cezar para TCE tem apoio do governador Tarcísio de Freitas e da bancada do PT na Alesp Imagem: Rodrigo Romeo/Alesp Do UOL, em São Paulo 18/11/2025 17h41 Atualizada em 18/11/2025 18h38 A Alesp (Assembleia Legislativa de São Paulo) aprovou o nome do deputado estadual Carlos Cezar (PL) para uma vaga de conselheiro do TCE-SP (Tribunal de Contas de São Paulo). O que aconteceu Nome de Carlos Cezar recebeu apoio do PT e de Tarcísio. Mesmo com apoio do governador de São Paulo, Tarcísio de Freitas (Republicanos), a indicação pelo nome foi da Alesp. Em maio, o UOL apurou que o deputado buscou colegas parlamentares para angariar apoio para a própria indicação . O deputado entrará no lugar de Sidney Beraldo, que se aposentará até o fim deste mês ao completar 75 anos de idade. Relacionadas Operação entre BRB e Master ocorreu por 'pura camaradagem', diz PF Derrite recua em 5ª versão do PL Antifacção, contraria PF e atende Receita Vetada por Lula, linguagem neutra já foi usada por Janja em ato oficial PT votou a favor e elogiou a aprovação do nome . A deputada Thainara Faria (PT) afirmou que o deputado Carlos Cezar é uma \"pessoa maravilhosa\", independente de \"ideias diferentes\" sobre a sociedade. Conselheiro pode ficar no cargo até os 75 anos, quando se aposenta compulsoriamente . Cezar terá direito a um salário de R$ 44 mil e a nomear mais de 30 pessoas para trabalhar com ele no gabinete. Conselho do TCE é responsável por aprovar contas do governador . Um conselheiro do Tribunal de Contas tem diversas atribuições, incluindo o julgamento de processos, a fiscalização das contas públicas, a execução das despesas e receitas dos órgãos e entidades estaduais. Há sete conselheiros no TCE-SP. Com a aprovação de Carlos Cezar, serão quatro com aval do Tarcísio. Outros três conselheiros foram indicados pelo governador Wagner Rosário, controlador-geral de São Paulo, foi aprovado pela Alesp em setembro para uma das cadeiras no tribunal . Tarcísio indicou o nome após a aposentado",
+        "data": "",
+        "fonte": "alesp",
+        "nivel": "estadual",
+        "tipo_coleta": "google_search",
+        "ementa": "3 days ago ... Com apoio do PT, Alesp aprova deputado bolsonarista ... A Alesp (Assembleia Legislativa de São Paulo) aprovou o nome do deputado estadual ..."
+      },
+      {
+        "titulo": "Folha de S.Paulo - Busca: PSOL",
+        "link": "https://search.folha.uol.com.br/search?site=online&q=PSOL&src=redacao",
+        "descricao": "5 days ago ... Tarcísio deve consolidar influência prolongada no Tribunal de Contas com nova indicação da Alesp. O deputado estadual Carlos Cezar (PL) discursa no plenário ...",
+        "conteudo": "Busca Buscar no sites da Folha de S.Paulo Buscar Filtrar FILTROS PERÍODO Todo período Últimas 24 horas Última semana Último mês Último ano Personalizado DE ATÉ SEÇÕES Tudo na Folha Editorias Edição Impressa DataFolha EDITORIAS Todas Opinião Colunas Política Mercado Cotidiano Mundo Esporte Ilustrada Ilustríssima Cartum F5 Guia Folha Folhinha Folhateen Seminários O Melhor de São Paulo Ambiente Ciência Comida Educação Equilíbrio Saúde Fotografia Podcasts Revista SÃOPAULO Serafina Sobre tudo Tec Turismo TV Folha Ao vivos Folha Social+ Top of mind Folha - español Folha - english Filtrar 10000 Resultados para PSOL mais recentes Mais recentes Mais antigas Folha de S.Paulo - Poder Marçal diz que direita é refém de Bolsonaro e defende outsider em 2026: 'Nenhum dos que estão aí' O empresário acusou —de maneira falsa e reiterada— o adversário, o atual ministro Guilherme Boulos ( PSOL ), de cheirar cocaína, inclusive com a publicação de um laudo falsificado. ... 22.nov.2025 às 4h00 Colunas da Folha - Demétrio Magnoli Todes falaremos português Lula sancionou a Política Nacional de Linguagem Simples, inclusive o veto à linguagem neutra A difusão social da linguagem neutra exigiria o exercício de inclemente repressão Erika Hilton ... 21.nov.2025 às 16h08 Folha de S.Paulo - Poder Moraes manda prender Alexandre Ramagem após deputado ir aos EUA Na própria quarta, o PSOL enviou ofício à Polícia Federal para pedir a prisão do deputado. No dia seguinte, o partido protocolou o mesmo pedido no STF. ... 21.nov.2025 às 14h15 Colunas da Folha - Gustavo Alonso Lula nomeia homem branco para o STF em pleno dia de Zumbi Mesmo o PSOL , que abraça enfaticamente as pautas identitárias, não nasceu em função delas. Aos poucos PT e PSOL foram incorporando as bandeiras identitárias. ... 21.nov.2025 às 9h48 Colunas da Folha - Painel Deputado do PSOL aciona Ministério Público contra PMs armados que invadiram escola infantil profissionais de escola municipal em que sua filha estuda por causa de atividade ",
+        "data": "",
+        "fonte": "alesp",
+        "nivel": "estadual",
+        "tipo_coleta": "google_search",
+        "ementa": "5 days ago ... Tarcísio deve consolidar influência prolongada no Tribunal de Contas com nova indicação da Alesp. O deputado estadual Carlos Cezar (PL) discursa no plenário ..."
+      },
+      {
+        "titulo": "Por que o Brasil tem cada vez menos aeroclubes? E como isso ...",
+        "link": "https://oglobo.globo.com/economia/negocios/noticia/2025/11/10/numero-de-aeroclubes-no-brasil-esta-encolhendo-com-onda-de-despejos-apos-concessoes-de-aeroportos.ghtml",
+        "descricao": "Nov 9, 2025 ... Como reação, o setor vai realizar uma audiência pública na Alesp em novembro sobre o tema. ... Membros da escola, em conjunto com o deputado ...",
+        "conteudo": "O setor aéreo está aquecido no Brasil: em setembro foram 8,5 milhões de passageiros, o melhor resultado desde janeiro de 2000, segundo o governo federal. O número de licenças emitidas para pilotos de companhias aéreas atingiu este ano o maior patamar desde 1970, mostram dados da Agência Nacional de Aviação Civil ( Anac ). ‘Shutdown’: viagens áereas nos EUA podem praticamente parar no feriado de Ação de Graças Mais voos: Aéreas estrangeiras aceleram expansão de rotas no Brasil Nas cabines, porém, o clima para parte da categoria não é de festa. O longo caminho que os pilotos percorrem até estarem habilitados a comandar uma aeronave comercial começa nas escolas de aviação — e muitas estão ameaçadas por uma onda de despejos imobiliários. Os aeroclubes, instituições sem fins lucrativos, multiplicaram-se na década de 1940, graças a uma campanha do magnata da mídia Assis Chateaubriand e do então ministro da Aeronáutica, Salgado Filho. Hoje há 87 em funcionamento, conforme a Anac, o que representa 33% dos 258 centros de instrução de aviação civil no país. No século passado, segundo fontes do setor, havia ao menos o dobro, e o número cai ano a ano. Desde 2016, segundo levantamento feito por uma audiência pública na Assembleia Legislativa de São Paulo (Alesp) que vai debater o tema, ao menos 38 aeroclubes enfrentaram problemas; destes, 16 fecharam as portas. Não decolou: Foguete de Jeff Bezos tem lançamento para Marte adiado por conta do clima Esse processo é concomitante à concessão de aeroportos regionais, que costumam abrigar essas instituições, à iniciativa privada. Mas isso também ocorreu em terminais geridos pela estatal Infraero. É o caso do Aeroclube de São Paulo, fundado em 1931, que funciona no Aeroporto Campo de Marte, na Zona Norte da capital paulista. Segundo mais antigo em operação no país, ele enfrenta uma disputa na Justiça com a concessionária Pax Aeroportos, que assumiu o terminal em 2023, e pode ser despejado. Audiência pública dia 13 Outro fator por trás d",
+        "data": "",
+        "fonte": "alesp",
+        "nivel": "estadual",
+        "tipo_coleta": "google_search",
+        "ementa": "Nov 9, 2025 ... Como reação, o setor vai realizar uma audiência pública na Alesp em novembro sobre o tema. ... Membros da escola, em conjunto com o deputado ..."
+      },
+      {
+        "titulo": "Alesp [Assembleia Legislativa de São Paulo] - Tudo Sobre - Estadão",
+        "link": "https://www.estadao.com.br/tudo-sobre/alesp-assembleia-legislativa-de-sao-paulo/",
+        "descricao": "Oct 23, 2025 ... Deputado estadual Lucas Bove (PL-SP). Foto: Larissa Navarro/Alesp ... Alesp aprova indicação de ex-ministro de Bolsonaro e aliado de Tarcísio para ...",
+        "conteudo": "Filtrar ou A B C D E F G H I J K L M N O P Q R S T U V W X Y Z #",
+        "data": "",
+        "fonte": "alesp",
+        "nivel": "estadual",
+        "tipo_coleta": "google_search",
+        "ementa": "Oct 23, 2025 ... Deputado estadual Lucas Bove (PL-SP). Foto: Larissa Navarro/Alesp ... Alesp aprova indicação de ex-ministro de Bolsonaro e aliado de Tarcísio para ..."
+      }
+    ],
+    "municipal": [
+      {
+        "titulo": "Projeto que prevê aumentar valor do IPTU de Pinda deve ser votado ...",
+        "link": "https://g1.globo.com/google/amp/sp/vale-do-paraiba-regiao/noticia/2025/11/18/projeto-que-preve-aumentar-valor-do-iptu-de-pindamonhangaba-deve-ser-votado-nesta-terca-feira.ghtml",
+        "descricao": "4 days ago ... ... Câmara Municipal desta terça-feira ( ... O projeto de lei que busca revisar a Planta Genérica de ...",
+        "data": "",
+        "fonte": "noticias_municipais",
+        "tipo": "noticia",
+        "nivel": "municipal",
+        "conteudo": "Pinda: Revisão da planta genérica pode aumentar IPTU O projeto de lei que busca revisar a Planta Genérica de Valores de Pindamonhangaba está previsto para ser votado na sessão da Câmara Municipal desta terça-feira (18). A votação será única . Se for aprovado, o projeto vai provocar o aumento do valor do IPTU para 96,7% dos imóveis da cidade em 2026 - segundo a prefeitura, dos 91 mil carnês que serão emitidos para o próximo ano, cerca de 3 mil terão redução no valor. Os demais terão aumento . O projeto foi enviado pelo prefeito da cidade, Ricardo Piorino (PL) , em regime de urgência, para acelerar a tramitação, no dia 7 de novembro. ✅ Clique aqui para seguir o canal do g1 Vale do Paraíba e região no WhatsApp 🔍 A Planta Genérica de Valores é um instrumento usado para determinar o valor venal dos imóveis - valor venal é o valor de referência usado pelas prefeituras para cada terreno e construção dentro do território municipal. Esse valor não é o preço de mercado, mas serve como base de cálculo do IPTU e outros impostos. Portanto, a Planta Genérica de Valores é um mapa ou tabela usada pela prefeitura que mostra quanto vale, em média, o metro quadrado do terreno e da construção em cada região da cidade. Recentemente, outras grandes cidades do Vale do Paraíba - como São José dos Campos e Taubaté - também discutiram uma revisão da Planta Genérica de Valores. 1 de 1 Vista aérea de Pindamonhangaba — Foto: Divulgação/Prefeitura de Pindamonhangaba Vista aérea de Pindamonhangaba — Foto: Divulgação/Prefeitura de Pindamonhangaba O que o projeto de Pinda prevê O projeto de lei ordinária apresentado pela prefeitura prevê a revisão da Planta Genérica de Valores de Pindamonhangaba. No projeto, o prefeito Ricardo Piorino explicou que o valor venal do imóvel corresponde à soma do valor venal do terreno e do valor venal da construção . Caso o projeto de lei seja aprovado, o valor venal do terreno em Pindamonhangaba será determinado pelo valor do metro quadrado do terreno multiplicado pe",
+        "relevancia": 10,
+        "tipo_coleta": "google_search"
+      },
+      {
+        "titulo": "CPI aprova quebra sigilo de empresário que ensinava burlar lei em ...",
+        "link": "https://g1.globo.com/sp/sao-paulo/noticia/2025/11/05/cpi-em-sp-aprova-quebra-sigilo-de-empresario-que-ensinava-investidores-a-lucrarem-com-imoveis-destinados-a-baixa-renda.ghtml",
+        "descricao": "Nov 4, 2025 ... ... vereadores. — Foto: Juliana Hipólito/Rede Câmara. O próprio Gustavo ... Vale do Paraíba e Região. São Paulo Vale do Paraíba e Região ...",
+        "data": "",
+        "fonte": "noticias_municipais",
+        "tipo": "noticia",
+        "nivel": "municipal",
+        "conteudo": "CPI quebra sigilos bancário e fiscal de empresário que anunciava Habitações de Interesse Social pela internet A Comissão Parlamentar de Inquérito (CPI) que investiga na Câmara Municipal de São Paulo as fraudes das construtoras na cidade na venda de habitações de interesse social (HIS) aprovou na terça-feira (4) a quebra dos sigilos fiscal e bancário do empresário Gustavo Nery, CEO da imobiliária Midrah Investimentos. Nery foi chamado a depor na CPI por ter sido flagrado em vários vídeos divulgados na internet ensinando investidores e clientes da sua empresa a burlarem as regras dos imóveis destinados à população de baixa renda na capital paulista para obterem lucro. No depoimento, o empresário se recusou a responder às perguntas dos vereadores, que exibiram vídeos dele aconselhando investidores a burlarem as regras dos imóveis HIS. O g1 tenta contato com a defesa dela, mas ainda não obteve resposta. Apartamentos destinados à baixa renda Empresário que ensinava a burlar regras de imóveis HIS tem sigilo quebrado por CPI em SP Em um dos vídeos, ele exibiu uma planilha com pelo menos 14 imóveis de sua propriedade, a maioria deles eram apartamentos destinados exclusivamente às pessoas de baixa renda. “Eu não vou pagar 30% mais caro em uma unidade só por causa de um nome no contrato da unidade. Esse risco eu topo correr. Por 30% de prêmio, eu topo correr”, afirma Nery em um dos vídeos exibidos na CPI (veja acima). Em outros vídeos, ele se vangloria de ter comprado apartamentos de interesse social mais baratos no mercado para poder lucrar mais com os aluguéis de curta temporada desses imóveis, que são proibidos de serem locados na modalidade \"Airbnb\", de acordo com as regras impostas pela Prefeitura de São Paulo. Essa regra foi decretada em maio pelo prefeito Ricardo Nunes ( MDB ), depois que foi descoberto o esquema de fraudes das construtoras. Essas empresas recebiam isenção fiscal nas construções dos prédios, com a obrigação de destinarem as moradias prontas às pessoas ",
+        "relevancia": 10,
+        "tipo_coleta": "google_search"
+      },
+      {
+        "titulo": "Vereadores de Pinda aprovam projeto que prevê aumento no valor ...",
+        "link": "https://g1.globo.com/sp/vale-do-paraiba-regiao/noticia/2025/11/18/camara-de-pindamonhangaba-aprova-projeto-que-preve-aumentar-valor-do-iptu-veja-como-cada-vereador-votou.ghtml",
+        "descricao": "3 days ago ... Câmara de Pindamonhangaba aprova projeto que prevê aumentar valor do IPTU; veja como cada vereador votou ... Veja mais notícias do Vale do Paraíba ...",
+        "data": "",
+        "fonte": "noticias_municipais",
+        "tipo": "noticia",
+        "nivel": "municipal",
+        "conteudo": "Câmara de Pinda aprova aumento de IPTU, sob protestos Os vereadores de Pindamonhangaba aprovaram, na tarde desta terça-feira (18), na Câmara Municipal, o projeto de lei que busca revisar a Planta Genérica de Valores da cidade. Com a aprovação em votação única nesta terça, o projeto vai provocar o aumento do valor do IPTU para 96,7% dos imóveis da cidade em 2026. O projeto foi aprovado por 6 votos a 5, em uma sessão marcada por protesto de moradores. Veja abaixo como votou cada vereador: ✅ A favor da revisão do planta: Carlos Moura - Magrão (PSD) Felipe César Filho - FC (PL) Gari Abençoado (Republicanos) Marco Mayor (PL) Prof. Everton (Republicanos) Prof. Felipe Guimarães (Podemos) ❌ Contra a revisão da planta: Ana Paula Goffi (União) Gilson Nagrin (PL) Norberto Moraes (PP) Renato Cebola (União) Rogério Ramos (Podemos) 1 de 2 Vereadores de Pindamonhangaba aprovam projeto que prevê aumentar valor do IPTU — Foto: Gabriel Guimarães/TV Vanguarda Vereadores de Pindamonhangaba aprovam projeto que prevê aumentar valor do IPTU — Foto: Gabriel Guimarães/TV Vanguarda Segundo a prefeitura, dos 91 mil carnês que serão emitidos para o próximo ano, cerca de 3 mil terão redução no valor. Os demais terão aumento . ✅ Clique aqui para seguir o canal do g1 Vale do Paraíba e região no WhatsApp O projeto havia sido enviado pelo prefeito da cidade, Ricardo Piorino (PL) , em regime de urgência, para acelerar a tramitação, no dia 7 de novembro. 🔍 A Planta Genérica de Valores é um instrumento usado para determinar o valor venal dos imóveis - valor venal é o valor de referência usado pelas prefeituras para cada terreno e construção dentro do território municipal. Esse valor não é o preço de mercado, mas serve como base de cálculo do IPTU e outros impostos. Portanto, a Planta Genérica de Valores é um mapa ou tabela usada pela prefeitura que mostra quanto vale, em média, o metro quadrado do terreno e da construção em cada região da cidade. Recentemente, outras grandes cidades do Vale do Paraíba",
+        "relevancia": 10,
+        "tipo_coleta": "google_search"
+      },
+      {
+        "titulo": "Vereadores de Pinda aprovam projeto que prevê aumento no valor ...",
+        "link": "https://g1.globo.com/google/amp/sp/vale-do-paraiba-regiao/noticia/2025/11/18/camara-de-pindamonhangaba-aprova-projeto-que-preve-aumentar-valor-do-iptu-veja-como-cada-vereador-votou.ghtml",
+        "descricao": "3 days ago ... Vale do Paraíba e Região. Câmara de Pindamonhangaba aprova projeto que prevê aumentar valor do IPTU; veja como cada vereador votou. Projeto ...",
+        "data": "",
+        "fonte": "noticias_municipais",
+        "tipo": "noticia",
+        "nivel": "municipal",
+        "conteudo": "Câmara de Pinda aprova aumento de IPTU, sob protestos Os vereadores de Pindamonhangaba aprovaram, na tarde desta terça-feira (18), na Câmara Municipal, o projeto de lei que busca revisar a Planta Genérica de Valores da cidade. Com a aprovação em votação única nesta terça, o projeto vai provocar o aumento do valor do IPTU para 96,7% dos imóveis da cidade em 2026. O projeto foi aprovado por 6 votos a 5, em uma sessão marcada por protesto de moradores. Veja abaixo como votou cada vereador: ✅ A favor da revisão do planta: Carlos Moura - Magrão (PSD) Felipe César Filho - FC (PL) Gari Abençoado (Republicanos) Marco Mayor (PL) Prof. Everton (Republicanos) Prof. Felipe Guimarães (Podemos) ❌ Contra a revisão da planta: Ana Paula Goffi (União) Gilson Nagrin (PL) Norberto Moraes (PP) Renato Cebola (União) Rogério Ramos (Podemos) 1 de 2 Vereadores de Pindamonhangaba aprovam projeto que prevê aumentar valor do IPTU — Foto: Gabriel Guimarães/TV Vanguarda Vereadores de Pindamonhangaba aprovam projeto que prevê aumentar valor do IPTU — Foto: Gabriel Guimarães/TV Vanguarda Segundo a prefeitura, dos 91 mil carnês que serão emitidos para o próximo ano, cerca de 3 mil terão redução no valor. Os demais terão aumento . ✅ Clique aqui para seguir o canal do g1 Vale do Paraíba e região no WhatsApp O projeto havia sido enviado pelo prefeito da cidade, Ricardo Piorino (PL) , em regime de urgência, para acelerar a tramitação, no dia 7 de novembro. 🔍 A Planta Genérica de Valores é um instrumento usado para determinar o valor venal dos imóveis - valor venal é o valor de referência usado pelas prefeituras para cada terreno e construção dentro do território municipal. Esse valor não é o preço de mercado, mas serve como base de cálculo do IPTU e outros impostos. Portanto, a Planta Genérica de Valores é um mapa ou tabela usada pela prefeitura que mostra quanto vale, em média, o metro quadrado do terreno e da construção em cada região da cidade. Recentemente, outras grandes cidades do Vale do Paraíba",
+        "relevancia": 10,
+        "tipo_coleta": "google_search"
+      }
+    ]
+  }
+}
