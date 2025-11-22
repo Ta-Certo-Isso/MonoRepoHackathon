@@ -1,0 +1,89 @@
+# 👂 Leli: A Ouvidoria Inteligente (Dados e Sentimento)
+
+> **Responsável:** Leli
+> **Missão:** "Dar poder ao cidadão". Provar para o usuário que a opinião dele não foi para o lixo, transformando conversas individuais em estatísticas de pressão pública.
+
+## 🎯 Objetivo do Módulo
+O módulo `leli` escuta passivamente as conversas do `nichols`, analisa o sentimento e categoriza as demandas. Ele alimenta o Dashboard e gera os "Relatórios de Impacto" para fechar o ciclo de feedback.
+
+### 🔗 Conexão com Regras de Negócio
+* **Sentimento de Pertencimento:** O usuário precisa sentir que foi ouvido.
+* **Viabilidade e Valor:** Transforma dados qualitativos (reclamações no zap) em dados quantitativos (Business Intelligence para ONGs/Governo).
+* **Escalabilidade:** Processamento assíncrono (não trava o chat).
+
+---
+
+## 🛠 Especificação Técnica
+
+### Stack
+* **Backend:** Python (Processamento de Texto e API para o Dashboard).
+* **Database:** SQLite (dev) -> PostgreSQL (prod).
+* **NLP:** Bibliotecas simples (`TextBlob` ou `VADER`) ou GPT-4o-mini (mais preciso para PT-BR).
+* **Frontend:** React + Recharts (Visualização).
+
+### 🌊 Fluxo de Dados (Pipeline)
+
+```mermaid
+sequenceDiagram
+    participant Chat as Nichols (Chat Logs)
+    participant Worker as Leli Worker (Python)
+    participant DB as Banco de Dados
+    participant Dash as Dashboard React
+    participant User as Usuário Final
+
+    Chat->>DB: Salva Log da Conversa
+    loop A cada 5 minutos
+        Worker->>DB: Busca conversas não processadas
+        Worker->>Worker: Analisa Sentimento (0 a 10 de Indignação)
+        Worker->>Worker: Extrai Tags (Ex: #Saude, #BairroX)
+        Worker->>DB: Atualiza Estatísticas
+    end
+    
+    Dash->>DB: Consome JSON de estatísticas
+    Dash->>Dash: Renderiza Mapa de Calor
+    
+    Note over Worker, User: Feedback Loop (O diferencial)
+    Worker->>Worker: Detecta pico de reclamação sobre "Buraco na Rua"
+    Worker->>Chat: Trigger: Enviar msg "Sua reclamação virou relatório!"
+    Chat->>User: Notificação de Sucesso
+````
+
+### 🧠 Detalhes de Implementação
+
+#### 1\. Análise de Sentimento
+
+Não complique. Crie 4 categorias simples:
+
+1.  **Dúvida** (Neutro)
+2.  **Apoio** (Positivo)
+3.  **Reclamação/Raiva** (Negativo)
+4.  **Medo/Fake News** (Alerta)
+
+#### 2\. O Dashboard (MVP)
+
+Uma tela React simples com 3 componentes:
+
+  * **Contador:** "Pessoas ouvidas hoje".
+  * **Gráfico de Pizza:** "Principais Temas" (Saúde, Segurança, etc).
+  * **Feed em Tempo Real:** Últimas mensagens (anonimizadas) passando na tela.
+
+#### 3\. Tabela de Dados (Schema Sugerido)
+
+```sql
+CREATE TABLE interactions (
+    id INTEGER PRIMARY KEY,
+    user_hash STRING, -- Anonimizado! LGPD!
+    topic STRING,
+    sentiment_score FLOAT,
+    region STRING,
+    timestamp DATETIME
+);
+```
+
+-----
+
+## ✅ Definition of Done (DoD) - Dia 1
+
+  - [ ] Banco de dados criado.
+  - [ ] Script Python que lê uma string "Odeio esse buraco na rua" e classifica como "Negativo/Infraestrutura".
+  - [ ] Tela React "Hello World" rodando.

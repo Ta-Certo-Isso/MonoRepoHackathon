@@ -1,0 +1,84 @@
+# 📢 Montoya: O Motor de Engajamento (Ativação)
+
+> **Responsável:** Montoya
+> **Missão:** "Quebrar a apatia". Monitorar o caos legislativo, filtrar o que importa e transformar em conteúdo viral para trazer o usuário para a plataforma.
+
+## 🎯 Objetivo do Módulo
+O `montoya` não espera o usuário perguntar. Ele ativamente busca informações públicas, simplifica a linguagem (estilo "fofoca cívica") e prepara o terreno para o disparo de mensagens.
+
+### 🔗 Conexão com Regras de Negócio
+* **Interesse Pelo Bolso:** O algoritmo deve priorizar notícias sobre dinheiro (impostos, benefícios, preços).
+* **Human-in-the-loop:** A IA cria, o humano valida. Isso garante nota máxima em "Responsabilidade da IA".
+* **Viabilidade:** Gera o conteúdo UMA vez para impactar MILHÕES (1-to-N), economizando tokens.
+
+---
+
+## 🛠 Especificação Técnica
+
+### Stack
+* **Linguagem:** Python (Scripts autônomos).
+* **Agendamento:** Lib `schedule` ou Cron simples.
+* **Fontes de Dados:** API Dados Abertos (Câmara), RSS Feeds (Senado), NewsAPI.
+* **LLM:** GPT-4o (Focado em Summarization e Copywriting).
+
+### 🌊 Fluxo de Dados (Pipeline)
+
+```mermaid
+graph TD
+    subgraph "Coleta (Ingestion)"
+        A[API Câmara] -->|JSON Bruto| B["Script Coletor"]
+        C[Google News] -->|Manchetes| B
+    end
+
+    subgraph "Processamento (IA Editora)"
+        B -->|Filtra Top 3 Tópicos| D{É Polêmico?}
+        D -->|Sim| E["GPT-4o: Resumir e Simplificar"]
+        E -->|Prompt: 'Explique para adolescente'| F["Gera Texto + Roteiro de Áudio"]
+    end
+
+    subgraph "Validação & Saída"
+        F --> G["Envia para Grupo Admin (Telegram/WPP)"]
+        G --> H{Admin Aprovou?}
+        H -->|Sim| I["Salva no Banco de Conteúdos"]
+        H -->|Sim| J["Dispara Trigger para Broadcast"]
+        H -->|Não| K[Descarta]
+    end
+````
+
+### 🧠 Detalhes de Implementação
+
+#### 1\. O Filtro de Relevância
+
+Não queremos saber de "Dia do Macarrão". O script deve buscar keywords:
+`['imposto', 'aumento', 'benefício', 'transporte', 'educação', 'saúde']`.
+
+#### 2\. A "Isca" (Hook)
+
+O output da IA deve sempre terminar com uma pergunta que leva ao módulo `nichols`:
+
+  * *Exemplo Gerado:* "O deputado X votou pra aumentar seu IPVA. Quer saber quanto você vai pagar a mais? Responda **CALCULAR**."
+
+#### 3\. Estrutura do JSON de Saída
+
+O `montoya` deve gerar um arquivo (ou entrada no DB) que o `nichols` e o `leli` possam ler:
+
+```json
+{
+  "id": "news_123",
+  "topic": "IPVA",
+  "headline": "Vão aumentar o imposto do carro!",
+  "content_text": "Texto curto explicativo...",
+  "audio_script": "Oi pessoal, notícia urgente...",
+  "source_link": "[https://camara.leg.br/](https://camara.leg.br/)...",
+  "call_to_action": "CALCULAR"
+}
+```
+
+-----
+
+## ✅ Definition of Done (DoD) - Dia 1
+
+  - [ ] Script roda, bate na API da Câmara e traz o título de 1 lei recente.
+  - [ ] GPT gera um resumo de 1 parágrafo dessa lei.
+  - [ ] Imprime esse resumo no terminal.
+

@@ -1,0 +1,83 @@
+# 🤖 Nichols: O Assistente Cidadão (Core do WhatsApp)
+
+> **Responsável:** Nichols
+> **Missão:** "Traduzir a democracia". Ser a interface amigável, auditiva e inteligente que conecta a 'Dona Maria' às leis.
+
+## 🎯 Objetivo do Módulo
+Este é o cérebro da interação em tempo real. O módulo `nichols` deve receber mensagens desestruturadas (áudio/texto), compreender a intenção, consultar fontes oficiais (RAG) e responder de forma empática e acessível.
+
+### 🔗 Conexão com Regras de Negócio
+* **Inclusão Digital:** Prioridade total para ÁUDIO (Whisper + TTS). A persona não gosta de ler textão.
+* **Combate à Desinformação:** Respostas baseadas em fatos (RAG), nunca em alucinação pura.
+* **Sem Barreira:** Zero login. O ID é o número de telefone (`remoteJid`).
+
+---
+
+## 🛠 Especificação Técnica
+
+### Stack
+* **Framework:** Python FastAPI (Async é vital para não travar com I/O da OpenAI).
+* **STT (Speech-to-Text):** OpenAI Whisper API.
+* **LLM:** GPT-4o-mini (Custo-benefício) ou GPT-4o (Precisão).
+* **TTS (Text-to-Speech):** OpenAI TTS (`model="tts-1"`, `voice="onyx"` ou `"alloy"`).
+* **Vector DB:** ChromaDB (Local/Persistente).
+* **WPP Client:** Webhook recebendo payload da Evolution API ou WPPConnect.
+
+### 🌊 Fluxo de Dados (Pipeline)
+
+```mermaid
+sequenceDiagram
+    participant User as Dona Maria (WhatsApp)
+    participant API as Nichols API (FastAPI)
+    participant AI as OpenAI (Whisper/GPT/TTS)
+    participant DB as ChromaDB (RAG)
+
+    User->>API: Envia Áudio ("É verdade que vão taxar o Pix?")
+    API->>AI: Envia áudio para Whisper
+    AI-->>API: Retorna texto transcrito
+    
+    rect rgb(240, 240, 240)
+        Note right of API: Decisão Inteligente
+        API->>API: Classifica Intenção (Dúvida vs. Papo)
+        API->>DB: Busca semanticamente "Taxação Pix"
+        DB-->>API: Retorna contexto (Leis/Notícias Reais)
+    end
+    
+    API->>AI: Prompt (System + Contexto + Dúvida)
+    AI-->>API: Resposta Texto ("Não é verdade...")
+    API->>AI: Converte Resposta para Áudio (TTS)
+    AI-->>API: Retorna Arquivo .mp3
+    API->>User: Envia Áudio Explicativo
+````
+
+### 🧠 Detalhes de Implementação
+
+#### 1\. System Prompt (A "Alma" do Bot)
+
+O prompt deve ser configurado para **jamais** ser elitista.
+
+> *"Você é um assistente cívico, neutro e amigo. Você explica leis complexas como se estivesse conversando na fila da padaria. Use analogias simples. Se a lei impacta o bolso, avise primeiro. Nunca invente leis."*
+
+#### 2\. RAG (Retrieval-Augmented Generation)
+
+Não tente indexar o mundo. Para o MVP:
+
+  * Crie uma pasta `data/` com 5 PDFs/TXTs de leis polêmicas atuais.
+  * No startup da aplicação, o script deve ler esses arquivos e popular o ChromaDB.
+
+#### 3\. Output
+
+  * Sempre envie o TEXTO curto + o ÁUDIO.
+  * Sempre cite a fonte no final do texto (ex: *"Fonte: Câmara dos Deputados, PL 123/23"*).
+
+-----
+
+## ✅ Definition of Done (DoD) - Dia 1
+
+  - [ ] Webhook recebe mensagem "Oi".
+  - [ ] Responde com texto fixo.
+  - [ ] Responde convertendo texto para áudio.
+
+<!-- end list -->
+
+````
