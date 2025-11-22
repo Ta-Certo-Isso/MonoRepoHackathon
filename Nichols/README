@@ -74,10 +74,75 @@ Não tente indexar o mundo. Para o MVP:
 
 ## ✅ Definition of Done (DoD) - Dia 1
 
-  - [ ] Webhook recebe mensagem "Oi".
-  - [ ] Responde com texto fixo.
-  - [ ] Responde convertendo texto para áudio.
+  - [x] Webhook recebe mensagem "Oi".
+  - [x] Responde com texto fixo.
+  - [x] Responde convertendo texto para áudio.
 
 <!-- end list -->
 
 ````
+-----
+
+## Setup rapido do Bot (FastAPI + Evolution API)
+
+### Variaveis obrigatorias
+
+Defina as variaveis de ambiente antes de subir o servidor (local ou Render):
+
+````
+OPENAI_API_KEY=sk-...
+OPENAI_TTS_MODEL=tts-1
+OPENAI_TTS_VOICE=alloy
+EVOLUTION_BASE_URL=http://localhost:8080
+EVOLUTION_API_KEY=sua-chave-do-evolution
+EVOLUTION_INSTANCE=nome-da-instancia
+# Opcional para validar webhooks
+WEBHOOK_TOKEN=segredo-webhook
+````
+
+### Como rodar local
+
+````
+cd Nichols
+pip install -r requirements.txt
+uvicorn Nichols.main:app --host 0.0.0.0 --port 8000 --reload
+````
+
+### Webhook esperado
+
+- Endpoint: POST /webhook/evolution
+- Corpo: payload JSON do Evolution API (eventos MESSAGES_UPSERT) com remoteJid e texto/áudio. O bot ignora mensagens enviadas por ele mesmo (fromMe=true).
+- Resposta: envia texto + audio TTS para o mesmo numero via Evolution (/message/sendText/{instance} e /message/sendWhatsAppAudio/{instance}).
+- Memoria por sessao: historico persiste em SQLite (HISTORY_DB) por numero.
+- RAG: ao iniciar, carrega .txt em DATA_DIR e monta Chroma para recuperar contexto.
+- STT: se chegar URL de audio, baixa, transcreve com Whisper e responde.
+- LLM: LangChain + ChatOpenAI com system prompt civico (sem nome) + contexto RAG + historico.
+- Function calling: placeholder em handle_tools para plugar consultas externas.
+
+### Healthcheck
+
+- GET /health retorna {"status": "ok"}.
+
+````
+
+## Qualidade / testes
+
+- Crie a venv: `python -m venv .venv`
+- Instale deps: `.\.venv\Scripts\python -m pip install -r Nichols/requirements.txt -r Nichols/requirements-dev.txt`
+- Rode format/mypy: `.\.venv\Scripts\python -m black Nichols` e `.\.venv\Scripts\python -m mypy Nichols/main.py`
+- Exemplo de teste (set envs primeiro):  
+  `$env:OPENAI_API_KEY='test'; $env:EVOLUTION_BASE_URL='http://localhost'; $env:EVOLUTION_API_KEY='test'; $env:EVOLUTION_INSTANCE='instance'; .\\.venv\\Scripts\\python -m pytest Nichols/tests`
+
+## Deploy / IaC
+
+- Render Blueprint: `render.yaml` (rootDir Nichols, build `pip install -r requirements.txt`, start `uvicorn main:app --host 0.0.0.0 --port $PORT`, envs listadas).
+- GitHub Actions: `.github/workflows/ci-render.yml` (teste + deploy via Deploy Hook Render; configurar secret `RENDER_DEPLOY_HOOK_URL`).
+- Evolution local/VPS: `docker-compose.yml` + `.env.evolution` (copiar de `.env.evolution.example`).
+- Webhook do Evolution: apontar para `/webhook/evolution` do serviço no Render.
+
+### Próximos passos pós-commit
+
+1. Ajustar `.env` (OpenAI, Evolution, DATA_DIR/HISTORY_DB, WEBHOOK_TOKEN).
+2. Criar Deploy Hook no Render e setar o secret `RENDER_DEPLOY_HOOK_URL` no GitHub.
+3. Subir `.txt` em `DATA_DIR` (1ª linha = título) para o RAG.
+4. Subir Evolution (docker-compose) e conectar instância; testar com `/api/ask` e com webhook real.
