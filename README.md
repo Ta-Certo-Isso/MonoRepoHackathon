@@ -6,13 +6,13 @@ O brasileiro médio não confia na política, não entende as leis e se sente im
 
 ## 💡 A Solução
 
-Uma plataforma integrada que **Ativa** o cidadão com notícias traduzidas para um português "não jurídico" publicadas em redes sociais, como: tiktok e instagram ('src/app/1-Video-Generator'). Com objetivo de **engajar** o usuário a ir para o WhatsApp, onde o mesmo **Interage** através de um chatbot com IA ('src/app/2-ChatBot-WhatsApp'), para fazer a **Captura e Classificação** do **sentimento popular** sobre Leis e Projetos governamentais. Por fim, esses dados são utilizados para gerar indicadores de impacto que são enviados diretamente aos orgãos competentes, como: governos estaduais, municipais e senado federal.
+Uma plataforma integrada que **Ativa** o cidadão com notícias traduzidas para um português "não jurídico" publicadas em redes sociais, como: tiktok e instagram **('src/app/1-Video-Generator')**. Com objetivo de **engajar** o usuário a ir para o WhatsApp, onde o mesmo **Interage** através de um chatbot com IA **('src/app/2-ChatBot-WhatsApp')**, para fazer a **Captura e Classificação** do **sentimento popular** sobre Leis e Projetos governamentais. Por fim, esses dados são utilizados para gerar indicadores de impacto que são enviados diretamente aos orgãos competentes, como: governos estaduais, municipais e senado federal **('src/app/3-Data-Analytics-Comunicator')**.
 
 Toda a malha de dados fica centralizada em um MongoDB hospedado em Azure Container Instances + Azure Files, garantindo histórico único das conversas do WhatsApp para alimentar o módulo ('src/app/3-Data-Analytics-Comunicator') e qualquer dashboard analítico futuro.
 
 ![relatorio_sentimento](https://github.com/user-attachments/assets/098b3021-5482-4826-a491-7f194cd8bf8b)
 
-## Deploy
+## Deploy ChatBot
 
 - **Bot (Nichols)**: publicado no Azure App Service (vide `infra/main.bicep` e `.github/workflows/ci-azure.yml`).
 - **Mongo (dados)**: o IaC provisiona um container MongoDB no Azure (ACI + Azure Files). Basta definir `mongoAdminPassword` no deploy para ter o endpoint pronto para o bot, Evolution e Leli.
