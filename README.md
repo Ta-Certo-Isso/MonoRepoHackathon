@@ -3,9 +3,11 @@
 > **Missão:** Quebrar a barreira da apatia política transformando o "juridiquês" em papo reto no WhatsApp, gerando engajamento cívico real e ouvidoria inteligente.
 
 ## 🎯 O Problema
+
 O brasileiro médio não confia na política, não entende as leis e se sente impotente. A informação chega distorcida (fake news) ou complexa demais (Diário Oficial).
 
 ## 💡 A Solução
+
 Uma plataforma integrada que **Ativa** o cidadão com notícias traduzidas, **Assiste** através de um chat interativo com IA no WhatsApp e **Ouve** o sentimento popular para gerar relatórios de impacto.
 
 Toda a malha de dados fica centralizada em um MongoDB hospedado em Azure Container Instances + Azure Files, garantindo histórico único das conversas do WhatsApp para alimentar o módulo Leli e qualquer dashboard analítico futuro.
@@ -50,6 +52,7 @@ graph TD
         J --> K[Dashboard React]
         K -->|Notificação Retorno| E
     end
+```
 
     subgraph "Data Layer"
         J --> L[(MongoDB - Azure Container Instance)]

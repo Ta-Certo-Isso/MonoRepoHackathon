@@ -1,0 +1,6 @@
+pandas
+yagmail
+openai
+python-dotenv
+duckdb
+matplotlib
