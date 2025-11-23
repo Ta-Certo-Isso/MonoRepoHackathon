@@ -10,9 +10,9 @@ Uma plataforma integrada que **Ativa** o cidadão com notícias traduzidas, **As
 
 ## 🎬 Exemplo de Vídeo Gerado
 
-Exemplo de vídeo gerado automaticamente pelo módulo Montoya usando IA (Sora) para transformar proposições legislativas em conteúdo visual:
+Exemplo de vídeo criado automaticamente pelo módulo Montoya (IA Sora) a partir de uma proposição legislativa:
 
-<video src="Montoya/output/videos/sora/run 2/projeto_que_prev_aumentar_valor_do_iptu_de_pinda_d_final.mp4" controls width="720"></video>
+<video src="https://raw.githubusercontent.com/Ta-Certo-Isso/MonoRepoHackathon/montoya/Montoya/output/videos/sora/run%202/projeto_que_prev_aumentar_valor_do_iptu_de_pinda_d_final.mp4" controls width="720"></video>
 
 ---
 

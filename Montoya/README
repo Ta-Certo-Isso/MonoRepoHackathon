@@ -8,6 +8,14 @@ O `montoya` não espera o usuário perguntar. Ele ativamente busca informações
 
 ---
 
+## 🎬 Exemplo Real
+
+Vídeo completo gerado automaticamente (roteiro + render em dois clipes Sora) a partir da lei municipal que prevê aumento do IPTU em Pindamonhangaba:
+
+<video src="https://raw.githubusercontent.com/Ta-Certo-Isso/MonoRepoHackathon/montoya/Montoya/output/videos/sora/run%202/projeto_que_prev_aumentar_valor_do_iptu_de_pinda_d_final.mp4" controls width="480"></video>
+
+---
+
 ## 🛠 Nova Estrutura (Refatorada)
 
 O projeto foi refatorado para utilizar **FastAPI** e uma estrutura modular profissional, pronta para deploy no Render.
@@ -57,17 +65,26 @@ Acesse a documentação interativa em: `http://localhost:8000/docs`
 
 ### CLI Profissional
 
-Os utilitários que antes ficavam nos `run_*.py` agora estão em um CLI unificado:
+Os utilitários que antes ficavam soltos em `run_*.py` agora estão em um CLI unificado:
 
 ```bash
+# 1. Coleta e grava no SQLite
 python -m src.cli collect --days-back 5 --limit 5
+
+# 2. Regenera roteiros aprovados
 python -m src.cli regenerate-scripts
-python -m src.cli print-script
+
+# 3. Visualiza o roteiro mais recente
+python -m src.cli print-script --id 42
+
+# 4. Renderiza vídeo completo (Sora) com base no script validado
 python -m src.cli generate-video --level municipal
+
+# 5. Teste rápido de prompt direto na Sora
 python -m src.cli test-sora --prompt "A video of a cat"
 ```
 
-Todos os artefatos são salvos dentro de `Montoya/output/...`.
+Todos os artefatos são salvos dentro de `Montoya/output/...` (scripts em `.json`/`.db`, vídeos em `videos/sora/run */`).
 
 ### Executando Testes
 
