@@ -12,7 +12,7 @@ O `montoya` não espera o usuário perguntar. Ele ativamente busca informações
 
 Vídeo completo gerado automaticamente (roteiro + render em dois clipes Sora) a partir da lei municipal que prevê aumento do IPTU em Pindamonhangaba:
 
-<video src="https://raw.githubusercontent.com/Ta-Certo-Isso/MonoRepoHackathon/montoya/Montoya/output/videos/sora/run%202/projeto_que_prev_aumentar_valor_do_iptu_de_pinda_d_final.mp4" controls width="480"></video>
+[▶️ Assistir ao vídeo (MP4)](https://raw.githubusercontent.com/Ta-Certo-Isso/MonoRepoHackathon/montoya/Montoya/output/videos/sora/run%202/projeto_que_prev_aumentar_valor_do_iptu_de_pinda_d_final.mp4)
 
 ---
 
