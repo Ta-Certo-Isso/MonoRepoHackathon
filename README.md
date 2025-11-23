@@ -49,7 +49,7 @@ graph TD
     subgraph "Módulo 3: Ouvidoria (Leli)"
         F -->|Logs de Conversa| I(Agente Analista Sentimento)
         I -->|Classificação| J[(Banco de Dados<br/>Insights)]
-        J --> K[Dashboard React]
+        J --> K[Relatório para o Governo]
         K -->|Notificação Retorno| E
     end
 ```
