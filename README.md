@@ -8,6 +8,12 @@ O brasileiro médio não confia na política, não entende as leis e se sente im
 ## 💡 A Solução
 Uma plataforma integrada que **Ativa** o cidadão com notícias traduzidas, **Assiste** através de um chat interativo com IA no WhatsApp e **Ouve** o sentimento popular para gerar relatórios de impacto.
 
+## 🎬 Exemplo de Vídeo Gerado
+
+Exemplo de vídeo gerado automaticamente pelo módulo Montoya usando IA (Sora) para transformar proposições legislativas em conteúdo visual:
+
+<video src="Montoya/output/videos/sora/run 2/projeto_que_prev_aumentar_valor_do_iptu_de_pinda_d_final.mp4" controls width="720"></video>
+
 ---
 
 ## 🏗 Arquitetura do MonoRepo

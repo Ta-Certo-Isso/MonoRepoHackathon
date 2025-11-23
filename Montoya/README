@@ -8,22 +8,23 @@ O `montoya` não espera o usuário perguntar. Ele ativamente busca informações
 
 ---
 
-## 🛠 Estrutura do Projeto
+## 🛠 Nova Estrutura (Refatorada)
 
-### Coletores por Nível
+O projeto foi refatorado para utilizar **FastAPI** e uma estrutura modular profissional, pronta para deploy no Render.
 
-- **`coletor_federal_camara.py`** - Coleta proposições da Câmara dos Deputados (API)
-- **`coletor_federal_senado.py`** - Coleta proposições do Senado Federal (API)
-- **`coletor_estadual.py`** - Coleta notícias sobre ALESP via Google Search
-- **`coletor_municipal.py`** - Coleta notícias sobre câmaras municipais do Vale do Paraíba
-
-### Scrapers
-
-- **`scraper_noticias.py`** - Scraper genérico de notícias usando Google Custom Search API
-
-### Orquestrador
-
-- **`coletor_principal.py`** - Orquestra a coleta de todas as fontes em paralelo
+```
+Montoya/
+├── src/
+│   ├── collectors/      # Coletores (Camara, Senado, ALESP, Municipal)
+│   ├── services/        # Orquestração e Geração de Conteúdo (TikTok + vídeos Sora)
+│   ├── models/          # Schemas Pydantic
+│   ├── core/            # Configuração e Logs
+│   ├── utils/           # Utilitários (Scraper Google)
+│   └── main.py          # App FastAPI
+├── tests/               # Testes Automatizados (Pytest)
+├── requirements.txt
+└── Procfile             # Configuração do Render
+```
 
 ---
 
@@ -31,56 +32,75 @@ O `montoya` não espera o usuário perguntar. Ele ativamente busca informações
 
 ### Instalação
 
+1. Crie e ative o ambiente virtual:
+   ```bash
+   python -m venv venv
+   .\venv\Scripts\activate
+   ```
+
+2. Instale as dependências:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. Configure as variáveis de ambiente:
+   - Renomeie `.env.example` para `.env`
+   - Adicione suas chaves: `GOOGLE_SEARCH_API_KEY`, `GOOGLE_SEARCH_ENGINE_ID`, `OPENAI_API_KEY`, `AZURE_OPENAI_VIDEOS_ENDPOINT`, `AZURE_OPENAI_VIDEOS_API_KEY`
+
+### Executando a API
+
 ```bash
-pip install -r requirements.txt
+uvicorn src.main:app --reload
 ```
 
-### Configuração
+Acesse a documentação interativa em: `http://localhost:8000/docs`
 
-1. Coloque suas credenciais do Google Custom Search API em `google-credentials.json`
-2. Ajuste os parâmetros no `coletor_principal.py` (DIAS_ATRAS, LIMITE_POR_FONTE, etc.)
+### CLI Profissional
 
-### Execução
+Os utilitários que antes ficavam nos `run_*.py` agora estão em um CLI unificado:
 
 ```bash
-python coletor_principal.py
+python -m src.cli collect --days-back 5 --limit 5
+python -m src.cli regenerate-scripts
+python -m src.cli print-script
+python -m src.cli generate-video --level municipal
+python -m src.cli test-sora --prompt "A video of a cat"
 ```
 
-Os resultados serão salvos em `resultados_coleta.json`.
+Todos os artefatos são salvos dentro de `Montoya/output/...`.
+
+### Executando Testes
+
+O projeto inclui testes automatizados reais que verificam a integração com as APIs externas.
+
+```bash
+pytest
+```
 
 ---
 
-## 📊 Estrutura de Dados
+## 📊 Endpoints Principais
 
-O coletor gera um JSON com a seguinte estrutura:
+- **`POST /collect`**: Dispara a coleta de todas as fontes.
+- **`POST /generate/tiktok`**: Gera um roteiro de TikTok para uma proposição.
+- **`POST /generate/video`**: Usa o Azure OpenAI (Sora) para renderizar até ~24s em dois clipes de 12s, salvando dentro de `Montoya/output/videos/`.
 
-```json
-{
-  "resumo": {
-    "data_coleta": "2025-11-22T...",
-    "total_geral": 19,
-    "total_por_fonte": {
-      "federal_camara": 5,
-      "federal_senado": 0,
-      "estadual_alesp": 10,
-      "municipal": 4
-    }
-  },
-  "dados": {
-    "federal_camara": [...],
-    "federal_senado": [...],
-    "estadual_alesp": [...],
-    "municipal": [...]
-  }
-}
-```
+### Revisando roteiros antes de renderizar
+
+- Use `POST /generate/tiktok` com a `Proposition` desejada: a resposta já traz o texto completo em `script`.
+- Todo roteiro salvo também fica no SQLite (`montoya.db`, tabela `scripts`). Basta abrir com `sqlite3` ou qualquer viewer para reaprovar/editá-lo antes de chamar `/generate/video`.
+
+### Saída de Arquivos
+
+Os vídeos gerados pelos testes ou scripts serão salvos automaticamente na pasta:
+`Montoya/output/videos/`
 
 ---
 
 ## 📝 Fontes de Dados
 
 - **Federal (Câmara):** API Dados Abertos da Câmara dos Deputados
-- **Federal (Senado):** API Dados Abertos do Senado Federal
-- **Estadual (ALESP):** Google Search em sites confiáveis (G1, Folha, Estadão, etc.)
-- **Municipal:** Google Search em sites confiáveis sobre câmaras municipais do Vale do Paraíba
+- **Federal (Senado):** Google Search (Notícias)
+- **Estadual (ALESP):** Google Search (Notícias)
+- **Municipal:** Google Search (Notícias do Vale do Paraíba)
 
