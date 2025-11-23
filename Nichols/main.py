@@ -2,7 +2,10 @@ import asyncio
 import base64
 import logging
 import os
-from dataclasses import dataclass
+import time
+from collections import OrderedDict
+from dataclasses import dataclass, field
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, NamedTuple, Optional, Tuple
 
@@ -14,6 +17,7 @@ from langchain_community.vectorstores import Chroma
 from langchain_core.messages import AIMessage, BaseMessage, HumanMessage, SystemMessage
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorCollection
 from pydantic import BaseModel, SecretStr
 
 
@@ -21,11 +25,37 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s | %(levelname)s | %(name)s | %(message)s",
 )
-logger = logging.getLogger("nichols")
+logger = logging.getLogger("whatsappchatbot")
+if not logger.handlers:
+    stream_handler = logging.StreamHandler()
+    stream_handler.setFormatter(
+        logging.Formatter("%(asctime)s | %(levelname)s | %(name)s | %(message)s")
+    )
+    logger.addHandler(stream_handler)
+logger.setLevel(logging.INFO)
+logger.propagate = False
 
 
 def _env(name: str, default: Optional[str] = None) -> Optional[str]:
     return os.environ.get(name, default)
+
+
+def _parse_msisdn(raw: str) -> str:
+    """Keep only digits to normalize phone numbers."""
+    digits = "".join(ch for ch in raw if ch.isdigit())
+    return digits
+
+
+def _env_phone_list(name: str) -> List[str]:
+    raw = os.environ.get(name, "")
+    if not raw:
+        return []
+    numbers = []
+    for chunk in raw.split(","):
+        digits = _parse_msisdn(chunk.strip())
+        if digits:
+            numbers.append(digits)
+    return numbers
 
 
 @dataclass
@@ -43,8 +73,17 @@ class Settings:
     webhook_token: Optional[str] = _env("WEBHOOK_TOKEN")
     data_dir: str = _env("DATA_DIR", "data") or ""
     history_db: str = _env("HISTORY_DB", "data/history.db") or ""
+    mongo_connection_uri: Optional[str] = _env("MONGO_CONNECTION_URI")
+    mongo_db_name: str = _env("MONGO_DB_NAME", "whatsappchatbot") or "whatsappchatbot"
+    mongo_collection_name: str = (
+        _env("MONGO_COLLECTION_NAME", "interactions") or "interactions"
+    )
+    allowed_numbers: List[str] = field(default_factory=list)
 
     def validate(self) -> None:
+        self.allowed_numbers = self.allowed_numbers or _env_phone_list(
+            "ALLOWED_WHATSAPP_NUMBERS"
+        )
         missing = [
             ("OPENAI_API_KEY", self.openai_api_key),
             ("EVOLUTION_BASE_URL", self.evolution_base_url),
@@ -186,28 +225,82 @@ class RetrievedContext(NamedTuple):
     sources: List[str]
 
 
+ReferenceSource = NamedTuple(
+    "ReferenceSource", [("keywords", Tuple[str, ...]), ("label", str), ("url", str)]
+)
+
+REFERENCE_LINKS: List[ReferenceSource] = [
+    ReferenceSource(
+        keywords=("pix", "pagamento instantâneo", "taxar o pix"),
+        label="Banco Central do Brasil - Pix",
+        url="https://www.bcb.gov.br/estabilidadefinanceira/pix",
+    ),
+    ReferenceSource(
+        keywords=("pl ", "projeto de lei", "pl ", "lei ", "senado"),
+        label="Portal da Câmara dos Deputados",
+        url="https://www.camara.leg.br/busca",
+    ),
+    ReferenceSource(
+        keywords=("imposto de renda", "irpf", "receita federal"),
+        label="Receita Federal - IRPF",
+        url="https://www.gov.br/receitafederal/pt-br/assuntos/meu-imposto-de-renda",
+    ),
+    ReferenceSource(
+        keywords=("benefício", "bolsa família", "auxílio"),
+        label="Portal Gov.br de benefícios sociais",
+        url="https://www.gov.br/cidadania/pt-br/auxilio-brasil",
+    ),
+    ReferenceSource(
+        keywords=("fake news", "boato", "desinformação"),
+        label="Saiba Mais - Ministério da Justiça",
+        url="https://www.gov.br/mj/pt-br/assuntos/fakenews",
+    ),
+]
+
+
 SYSTEM_PROMPT = """
-Você é um assistente cívico. Regras fixas:
-- Não use um nome próprio.
-- Fale em português simples, com empatia e frases curtas.
-- Comece pelo impacto prático no bolso/vida cotidiana.
-- Contexto > opinião. Cite a fonte se houver, no fim: (Fonte: ...).
-- Se não houver contexto, diga que vai buscar e faça uma resposta curta sem inventar.
-- Não prometa ações que não pode cumprir. Não peça login.
-- Se receber áudio, já converta mentalmente para texto antes de responder.
-- Se a pergunta pedir “como fazer”, responda passo a passo enxuto.
-- Evite juridiquês; traduza termos complexos.
-- Não recomende voto ou apoio a candidato/partido. Se houver controvérsia, explique os dois lados de forma neutra.
-- Quando identificar boato/fake news, explique por que é improvável e cite fonte oficial para conferir.
-- FORMATO DA RESPOSTA:
-- 1) Uma frase começando com "Em resumo: ..." em até 2 frases.
-- 2) Em seguida, uma explicação mais detalhada em até 2 parágrafos curtos.
+Você é o assistente oficial da iniciativa cívica "Tá Certo Isso?". Objetivo:
+- ajudar qualquer pessoa a entender leis, políticas públicas e boatos, sempre com foco prático no bolso/vida cotidiana;
+- combater desinformação com empatia e linguagem acessível;
+- representar o tom institucional da Tá Certo Isso?, sem opinião partidária.
+
+Regras fixas:
+- Identifique-se como assistente da Tá Certo Isso? na primeira frase, mas sem repetir em excesso.
+- Use português simples, frases curtas, e evite repetir a mesma ideia.
+- Comece com uma frase-resumo de até 2 frases, sem utilizar a expressão "Em resumo".
+- Depois do resumo, entregue no máximo dois parágrafos curtos com detalhes e passos acionáveis.
+- Se não houver dados suficientes, avise e sugira onde buscar.
+- Não prometa ações que não pode cumprir, nem peça dados pessoais.
+- Se detectar boato/fake news, explique calmamente por que é improvável e indique fonte oficial.
+- Sempre que citar fonte, use um link confiável real.
+- Nunca incentive voto ou posição partidária.
 """
+def select_reference_link(question: str, sources: List[str]) -> Optional[str]:
+    """Best-effort mapping from topic keywords to trusted URLs."""
+    combined = f"{question} {' '.join(sources)}".lower()
+    for entry in REFERENCE_LINKS:
+        if any(keyword in combined for keyword in entry.keywords):
+            return f"{entry.label} - {entry.url}"
+    return None
+
+
+def sanitize_reply_text(reply: str) -> str:
+    """Remove prefixos repetidos como 'Em resumo:' que o modelo possa inserir."""
+    trimmed = reply.strip()
+    prefix = "em resumo:"
+    lower = trimmed.lower()
+    if lower.startswith(prefix):
+        without = trimmed[len(prefix) :].lstrip(" -:\n\t")
+        trimmed = without or trimmed
+    return trimmed
+
+
 
 
 class AssistantPipeline:
     def __init__(self, settings: Settings) -> None:
         self.settings = settings
+        self.history_limit = 8
         self.llm = ChatOpenAI(
             api_key=SecretStr(settings.openai_api_key),
             model=settings.openai_model,
@@ -221,6 +314,7 @@ class AssistantPipeline:
         self.prompt = ChatPromptTemplate.from_messages(
             [
                 ("system", SYSTEM_PROMPT),
+                ("system", "{conversation_instructions}"),
                 ("system", "Contexto recuperado:\n{context}"),
                 ("human", "{question}"),
             ]
@@ -270,9 +364,17 @@ class AssistantPipeline:
         history = self._history(session_id)
 
         # Sliding window: mantém apenas os últimos 6 turnos para evitar custo e estouro de contexto
-        recent_messages = history.messages[-6:]
+        history_messages = history.messages
+        recent_messages = history_messages[-self.history_limit :]
+        conversation_instructions = (
+            "Primeira interação desta sessão. Faça um cumprimento curto, apresente-se como assistente da Tá Certo Isso? e explique em uma frase como pode ajudar."
+            if not history_messages
+            else "Conversa em andamento. Não se reapresente; vá direto à resposta usando o histórico como contexto."
+        )
         prompt_messages = self.prompt.format_messages(
-            context=ctx.text, question=question
+            context=ctx.text,
+            question=question,
+            conversation_instructions=conversation_instructions,
         )
         messages: List[BaseMessage] = [*recent_messages, *prompt_messages]
 
@@ -298,6 +400,19 @@ evolution_client = EvolutionAPIClient(
     default_instance=settings.evolution_instance,
 )
 assistant = AssistantPipeline(settings)
+mongo_client: Optional[AsyncIOMotorClient] = None
+mongo_collection: Optional[AsyncIOMotorCollection] = None
+PROCESSED_MESSAGE_LIMIT = 512
+_processed_messages: OrderedDict[str, float] = OrderedDict()
+def _is_duplicate_message(message_id: Optional[str]) -> bool:
+    if not message_id:
+        return False
+    if message_id in _processed_messages:
+        return True
+    _processed_messages[message_id] = time.time()
+    if len(_processed_messages) > PROCESSED_MESSAGE_LIMIT:
+        _processed_messages.popitem(last=False)
+    return False
 
 
 app = FastAPI(
@@ -308,7 +423,25 @@ app = FastAPI(
 
 @app.on_event("startup")
 async def startup_event() -> None:
+    global mongo_client, mongo_collection
     logger.info("Bot iniciado. Instancia padrao=%s", settings.evolution_instance)
+    if settings.mongo_connection_uri:
+        try:
+            mongo_client = AsyncIOMotorClient(settings.mongo_connection_uri)
+            database = mongo_client[settings.mongo_db_name]
+            await database.command("ping")
+            mongo_collection = database[settings.mongo_collection_name]
+            logger.info(
+                "MongoDB conectado db=%s collection=%s",
+                settings.mongo_db_name,
+                settings.mongo_collection_name,
+            )
+        except Exception as exc:  # pragma: no cover - ambiente externo
+            logger.exception("Falha ao conectar no MongoDB: %s", exc)
+            if mongo_client:
+                mongo_client.close()
+            mongo_client = None
+            mongo_collection = None
 
 
 @app.on_event("shutdown")
@@ -317,6 +450,8 @@ async def shutdown_event() -> None:
         tts_client.aclose(),
         evolution_client.aclose(),
     )
+    if mongo_client:
+        mongo_client.close()
 
 
 @dataclass
@@ -325,13 +460,16 @@ class IncomingMessage:
     number: str
     instance: Optional[str] = None
     audio_url: Optional[str] = None
+    message_id: Optional[str] = None
 
 
 def normalize_number(jid: Optional[str]) -> str:
-    """Remove sufixos do JID do WhatsApp (ex: @s.whatsapp.net)."""
+    """Remove sufixos e caracteres não numéricos do JID do WhatsApp."""
     if not jid:
         return ""
-    return jid.split("@")[0]
+    base = jid.split("@")[0]
+    digits = _parse_msisdn(base)
+    return digits or base
 
 
 def extract_text(message_block: Dict[str, Any]) -> Optional[str]:
@@ -362,12 +500,29 @@ def extract_text(message_block: Dict[str, Any]) -> Optional[str]:
 
 
 def extract_audio_url(message_block: Dict[str, Any]) -> Optional[str]:
+    def extract_url(container: Any) -> Optional[str]:
+        if isinstance(container, dict):
+            if "url" in container and container["url"]:
+                return str(container["url"])
+            if "directPath" in container and container["directPath"]:
+                return str(container["directPath"])
+        return None
+
     message = message_block.get("message")
     if isinstance(message, dict):
-        audio = message.get("audioMessage", {})
-        if isinstance(audio, dict) and "url" in audio:
-            return str(audio["url"])
-    media_url = message_block.get("mediaUrl") or message_block.get("audioUrl")
+        for key in ("audioMessage", "pttMessage", "voiceMessage"):
+            url = extract_url(message.get(key))
+            if url:
+                return url
+    for key in ("audio", "voice", "media", "document"):
+        url = extract_url(message_block.get(key))
+        if url:
+            return url
+    media_url = (
+        message_block.get("mediaUrl")
+        or message_block.get("audioUrl")
+        or message_block.get("downloadUrl")
+    )
     return str(media_url) if media_url else None
 
 
@@ -387,10 +542,12 @@ def parse_incoming(payload: Dict[str, Any]) -> Optional[IncomingMessage]:
         or base.get("instanceId")
     )
 
-    message_candidates = []
+    message_candidates: List[Dict[str, Any]] = []
     if isinstance(base.get("messages"), list):
-        message_candidates.extend(base["messages"])
-    if isinstance(base, dict):
+        for candidate in base["messages"]:
+            if isinstance(candidate, dict):
+                message_candidates.append(candidate)
+    if not message_candidates and isinstance(base, dict):
         message_candidates.append(base)
 
     for candidate in message_candidates:
@@ -407,9 +564,19 @@ def parse_incoming(payload: Dict[str, Any]) -> Optional[IncomingMessage]:
         )
         text = extract_text(candidate)
         audio_url = extract_audio_url(candidate)
+        message_id = (
+            key_data.get("id")
+            or candidate.get("id")
+            or candidate.get("messageId")
+            or candidate.get("messageID")
+        )
         if (text or audio_url) and number:
             return IncomingMessage(
-                text=text, number=number, instance=instance, audio_url=audio_url
+                text=text,
+                number=number,
+                instance=instance,
+                audio_url=audio_url,
+                message_id=message_id,
             )
 
     return None
@@ -440,7 +607,9 @@ async def handle_tools(text: str) -> str:
     return f"[INTENÇÃO: geral]\n{text}"
 
 
-async def process_message_content(content: str, session_id: str) -> str:
+async def process_message_content(
+    content: str, session_id: str, *, metadata: Optional[Dict[str, Any]] = None
+) -> str:
     enriched_question = await handle_tools(content)
     intent = "geral"
     if enriched_question.startswith("[INTENÇÃO:"):
@@ -455,16 +624,36 @@ async def process_message_content(content: str, session_id: str) -> str:
             "Tenta de novo em alguns minutos ou consulta diretamente o site da Câmara dos Deputados."
         )
 
-    if sources:
-        fontes = ", ".join(sources[:3])
+    reply = sanitize_reply_text(reply)
+    unique_sources = []
+    for src in sources:
+        if src not in unique_sources:
+            unique_sources.append(src)
+
+    reference_link = select_reference_link(question=content, sources=unique_sources)
+    if reference_link:
+        reply = f"{reply}\n\n(Fonte: {reference_link})"
+    elif unique_sources:
+        fontes = ", ".join(unique_sources[:3])
         reply = f"{reply}\n\n(Fonte: {fontes})"
     logger.info(
-        "session=%s intent=%s rag_used=%s sources=%s question=%r",
+        "session=%s intent=%s rag_used=%s sources=%s question=%r reference=%s",
         session_id,
         intent,
         bool(sources),
         ", ".join(sources[:3]) if sources else "-",
         content[:160],
+        reference_link or "-",
+    )
+
+    await persist_interaction(
+        session_id=session_id,
+        question=content,
+        answer=reply,
+        sources=sources,
+        intent=intent,
+        metadata=metadata or {},
+        reference_link=reference_link,
     )
     return reply
 
@@ -481,6 +670,19 @@ async def handle_evolution_webhook(
         logger.info("Ignored webhook: unable to extract text/number")
         return JSONResponse({"status": "ignored", "reason": "no_message"})
 
+    if _is_duplicate_message(incoming.message_id):
+        logger.info(
+            "Ignored webhook: duplicate message_id=%s",
+            incoming.message_id,
+        )
+        return JSONResponse({"status": "ignored", "reason": "duplicate"})
+
+    if settings.allowed_numbers and incoming.number not in settings.allowed_numbers:
+        logger.info(
+            "Ignored webhook: number %s not in allow-list", incoming.number
+        )
+        return JSONResponse({"status": "ignored", "reason": "unauthorized_sender"})
+
     user_text = incoming.text
     if not user_text and incoming.audio_url:
         try:
@@ -488,10 +690,32 @@ async def handle_evolution_webhook(
             user_text = await tts_client.transcribe(audio_bytes)
             logger.info("Transcribed audio to: %s", user_text)
         except Exception as exc:  # pragma: no cover - external failure
-            logger.error("Falha no STT: %s", exc)
+            logger.exception("Falha no STT: %s", exc)
 
     if not user_text:
+        fallback_text = (
+            "Não consegui entender o áudio desta vez. "
+            "Pode tentar repetir ou mandar a pergunta em texto?"
+        )
+        try:
+            await evolution_client.send_text(
+                incoming.number, fallback_text, incoming.instance
+            )
+        except Exception as exc:
+            logger.exception("Falha ao enviar fallback: %s", exc)
+            raise HTTPException(status_code=500, detail="Failed to send fallback") from exc
+        logger.warning(
+            "session=%s sem conteúdo compreensível; fallback enviado",
+            incoming.number,
+        )
         return JSONResponse({"status": "ignored", "reason": "empty_message"})
+
+    logger.info(
+        "session=%s mensagem recebida audio=%s chars=%s",
+        incoming.number,
+        bool(incoming.audio_url),
+        len(user_text),
+    )
 
     # Onboarding simples para saudações curtas
     greeting = user_text.strip().lower()
@@ -504,23 +728,45 @@ async def handle_evolution_webhook(
         logger.info("session=%s sent_intro=True", incoming.number)
         return JSONResponse({"status": "ok", "echo": user_text})
 
-    reply_text = await process_message_content(user_text, session_id=incoming.number)
+    metadata = {
+        "channel": "evolution",
+        "audio_input": bool(incoming.audio_url),
+        "instance": incoming.instance or settings.evolution_instance,
+    }
+    reply_text = await process_message_content(
+        user_text, session_id=incoming.number, metadata=metadata
+    )
 
-    try:
-        await evolution_client.send_text(incoming.number, reply_text, incoming.instance)
-    except Exception as exc:  # pragma: no cover - operational path
-        logger.exception("Failed to send text: %s", exc)
-        raise HTTPException(status_code=500, detail="Failed to send reply") from exc
-
+    audio_sent = False
     try:
         # Envia áudio apenas se a entrada foi áudio para evitar custo/ruído em texto simples
         if incoming.audio_url:
+            logger.info("session=%s iniciando resposta em áudio", incoming.number)
             audio_bytes = await tts_client.synthesize(reply_text)
             await evolution_client.send_audio(
                 incoming.number, audio_bytes, incoming.instance
             )
+            audio_sent = True
+            logger.info(
+                "session=%s áudio entregue com %s bytes",
+                incoming.number,
+                len(audio_bytes),
+            )
     except Exception as exc:  # pragma: no cover - operational path
         logger.exception("Failed to send audio: %s", exc)
+        audio_sent = False
+
+    should_send_text = not incoming.audio_url or not audio_sent
+    if should_send_text:
+        try:
+            await evolution_client.send_text(
+                incoming.number, reply_text, incoming.instance
+            )
+        except Exception as exc:  # pragma: no cover - operational path
+            logger.exception("Failed to send text: %s", exc)
+            raise HTTPException(status_code=500, detail="Failed to send reply") from exc
+    else:
+        logger.info("session=%s resposta enviada apenas em áudio", incoming.number)
 
     logger.info(
         "session=%s instance=%s text=%r sent_audio=%s",
@@ -553,5 +799,35 @@ class AskResponse(BaseModel):
 @app.post("/api/ask", response_model=AskResponse)
 async def api_ask(req: AskRequest) -> AskResponse:
     session_id = req.session_id.strip() or "anon"
-    answer = await process_message_content(req.question, session_id=session_id)
+    answer = await process_message_content(
+        req.question, session_id=session_id, metadata={"channel": "api"}
+    )
     return AskResponse(answer=answer)
+
+
+async def persist_interaction(
+    session_id: str,
+    question: str,
+    answer: str,
+    sources: List[str],
+    intent: str,
+    metadata: Dict[str, Any],
+    reference_link: Optional[str] = None,
+) -> None:
+    if not mongo_collection:
+        return
+    document = {
+        "sessionId": session_id,
+        "question": question,
+        "answer": answer,
+        "sources": sources,
+        "intent": intent,
+        "metadata": metadata,
+        "timestamp": datetime.now(timezone.utc),
+    }
+    if reference_link:
+        document["referenceLink"] = reference_link
+    try:
+        await mongo_collection.insert_one(document)
+    except Exception as exc:  # pragma: no cover - depende do cluster
+        logger.warning("Falha ao salvar interação no MongoDB: %s", exc)
