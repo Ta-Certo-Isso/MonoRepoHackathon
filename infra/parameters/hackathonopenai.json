@@ -1,0 +1,103 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "value": "eastus2"
+    },
+    "resourceGroupName": {
+      "value": "rg-hackathonopenai"
+    },
+    "acrName": {
+      "value": "hackathonopenaiacr"
+    },
+    "webAppName": {
+      "value": "hackathonopenai-api"
+    },
+    "containerImageName": {
+      "value": "whatsappchatbot-app"
+    },
+    "containerImageTag": {
+      "value": "latest"
+    },
+    "appServicePlanSkuName": {
+      "value": "B1"
+    },
+    "appSettings": {
+      "value": [
+        { "name": "OPENAI_API_KEY", "value": "" },
+        { "name": "OPENAI_MODEL", "value": "gpt-4o-mini" },
+        { "name": "OPENAI_TTS_MODEL", "value": "tts-1" },
+        { "name": "OPENAI_TTS_VOICE", "value": "alloy" },
+        { "name": "OPENAI_EMBEDDINGS_MODEL", "value": "text-embedding-3-small" },
+        { "name": "EVOLUTION_BASE_URL", "value": "" },
+        { "name": "EVOLUTION_API_KEY", "value": "" },
+        { "name": "EVOLUTION_INSTANCE", "value": "" },
+        { "name": "DATA_DIR", "value": "data" },
+        { "name": "HISTORY_DB", "value": "data/history.db" },
+        { "name": "WEBHOOK_TOKEN", "value": "" }
+      ]
+    },
+    "deployEvolutionService": {
+      "value": false
+    },
+    "evolutionWebAppName": {
+      "value": ""
+    },
+    "evolutionPlanSkuName": {
+      "value": "B1"
+    },
+    "evolutionAppSettings": {
+      "value": []
+    },
+    "mongoDbName": {
+      "value": "whatsappchatbot"
+    },
+    "mongoCollectionName": {
+      "value": "interactions"
+    },
+    "mongoContainerGroupName": {
+      "value": "hackathonopenai-mongo"
+    },
+    "mongoDnsLabel": {
+      "value": "hackathonopenaimongo"
+    },
+    "mongoStorageAccountName": {
+      "value": "hackmongoazfiles"
+    },
+    "mongoFileShareName": {
+      "value": "mongodata"
+    },
+    "mongoAdminUsername": {
+      "value": "mongoadmin"
+    },
+    "mongoAdminPassword": {
+      "value": ""
+    },
+    "mongoImage": {
+      "value": "hackathonopenaiacr.azurecr.io/mongo:7.0"
+    },
+    "mongoPort": {
+      "value": 27017
+    },
+    "mongoRegistryLoginServer": {
+      "value": "hackathonopenaiacr.azurecr.io"
+    },
+    "mongoRegistryUsername": {
+      "value": ""
+    },
+    "mongoRegistryPassword": {
+      "value": ""
+    },
+    "mongoCpuCores": {
+      "value": 1
+    },
+    "mongoMemoryInGb": {
+      "value": 2
+    },
+    "mongoFileShareQuota": {
+      "value": 10
+    }
+  }
+}
+

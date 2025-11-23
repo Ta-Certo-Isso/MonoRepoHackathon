@@ -1,10 +1,10 @@
-# 🤖 Nichols: O Assistente Cidadão (Core do WhatsApp)
+# 🤖 whatsappchatbot: O Assistente Cidadão (Core do WhatsApp)
 
-> **Responsável:** Nichols
+> **Responsável:** whatsappchatbot
 > **Missão:** "Traduzir a democracia". Ser a interface amigável, auditiva e inteligente que conecta a 'Dona Maria' às leis.
 
 ## 🎯 Objetivo do Módulo
-Este é o cérebro da interação em tempo real. O módulo `nichols` deve receber mensagens desestruturadas (áudio/texto), compreender a intenção, consultar fontes oficiais (RAG) e responder de forma empática e acessível.
+Este é o cérebro da interação em tempo real. O módulo `whatsappchatbot` deve receber mensagens desestruturadas (áudio/texto), compreender a intenção, consultar fontes oficiais (RAG) e responder de forma empática e acessível.
 
 ### 🔗 Conexão com Regras de Negócio
 * **Inclusão Digital:** Prioridade total para ÁUDIO (Whisper + TTS). A persona não gosta de ler textão.
@@ -28,7 +28,7 @@ Este é o cérebro da interação em tempo real. O módulo `nichols` deve recebe
 ```mermaid
 sequenceDiagram
     participant User as Dona Maria (WhatsApp)
-    participant API as Nichols API (FastAPI)
+    participant API as whatsappchatbot API (FastAPI)
     participant AI as OpenAI (Whisper/GPT/TTS)
     participant DB as ChromaDB (RAG)
 
@@ -92,6 +92,10 @@ OPENAI_TTS_VOICE=alloy
 EVOLUTION_BASE_URL=http://localhost:8080
 EVOLUTION_API_KEY=sua-chave-do-evolution
 EVOLUTION_INSTANCE=nome-da-instancia
+# Mongo gerenciado (Azure Container Instance ou docker local)
+MONGO_CONNECTION_URI=mongodb://localhost:27017
+MONGO_DB_NAME=whatsappchatbot
+MONGO_COLLECTION_NAME=interactions
 # Opcional para validar webhooks
 WEBHOOK_TOKEN=segredo-webhook
 ````
@@ -109,7 +113,7 @@ uvicorn Nichols.main:app --host 0.0.0.0 --port 8000 --reload
 - Endpoint: POST /webhook/evolution
 - Corpo: payload JSON do Evolution API (eventos MESSAGES_UPSERT) com remoteJid e texto/áudio. O bot ignora mensagens enviadas por ele mesmo (fromMe=true).
 - Resposta: envia texto + audio TTS para o mesmo numero via Evolution (/message/sendText/{instance} e /message/sendWhatsAppAudio/{instance}).
-- Memoria por sessao: historico persiste em SQLite (HISTORY_DB) por numero.
+- Memoria por sessao: historico persiste em SQLite (HISTORY_DB) por numero e é replicado no Mongo (`MONGO_*`) para o módulo **Leli** consumir dashboards.
 - RAG: ao iniciar, carrega .txt em DATA_DIR e monta Chroma para recuperar contexto.
 - STT: se chegar URL de audio, baixa, transcreve com Whisper e responde.
 - LLM: LangChain + ChatOpenAI com system prompt civico (sem nome) + contexto RAG + historico.

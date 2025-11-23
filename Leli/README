@@ -4,7 +4,7 @@
 > **Missão:** "Dar poder ao cidadão". Provar para o usuário que a opinião dele não foi para o lixo, transformando conversas individuais em estatísticas de pressão pública.
 
 ## 🎯 Objetivo do Módulo
-O módulo `leli` escuta passivamente as conversas do `nichols`, analisa o sentimento e categoriza as demandas. Ele alimenta o Dashboard e gera os "Relatórios de Impacto" para fechar o ciclo de feedback.
+O módulo `leli` escuta passivamente as conversas do `whatsappchatbot`, analisa o sentimento e categoriza as demandas. Ele alimenta o Dashboard e gera os "Relatórios de Impacto" para fechar o ciclo de feedback. Cada interação fica registrada em um MongoDB hospedado em Azure Container Instances (exposto para leitura pelo Leli e demais ferramentas) para consulta ou ETL próprios.
 
 ### 🔗 Conexão com Regras de Negócio
 * **Sentimento de Pertencimento:** O usuário precisa sentir que foi ouvido.
@@ -25,7 +25,7 @@ O módulo `leli` escuta passivamente as conversas do `nichols`, analisa o sentim
 
 ```mermaid
 sequenceDiagram
-    participant Chat as Nichols (Chat Logs)
+    participant Chat as whatsappchatbot (Chat Logs)
     participant Worker as Leli Worker (Python)
     participant DB as Banco de Dados
     participant Dash as Dashboard React
