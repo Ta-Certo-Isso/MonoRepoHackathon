@@ -1,0 +1,2 @@
+file 'C:/Users/NovoLucas/programacao/MonoRepoHackathon/Montoya/output/videos/sora/run 3/pl_5921_2025_s01.mp4'
+file 'C:/Users/NovoLucas/programacao/MonoRepoHackathon/Montoya/output/videos/sora/run 3/pl_5921_2025_s02.mp4'

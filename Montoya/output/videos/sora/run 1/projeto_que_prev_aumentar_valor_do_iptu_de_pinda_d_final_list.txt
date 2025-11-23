@@ -1,0 +1,2 @@
+file 'output/videos/sora/projeto_que_prev_aumentar_valor_do_iptu_de_pinda_d_s01.mp4'
+file 'output/videos/sora/projeto_que_prev_aumentar_valor_do_iptu_de_pinda_d_s02.mp4'
