@@ -1,5 +1,3 @@
-![relatorio_sentimento](https://github.com/user-attachments/assets/18d2f63a-203a-417d-90cc-ae2f73f0e1a3)# 🇧🇷 Tá Certo Isso? - Hackathon Devs de Impacto
-
 > **Missão:** Quebrar a barreira da apatia política transformando o "juridiquês" em papo reto no WhatsApp, gerando engajamento cívico real e ouvidoria inteligente.
 
 ## 🎯 O Problema
