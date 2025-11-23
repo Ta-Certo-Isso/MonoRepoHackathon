@@ -1,0 +1,123 @@
+# 📢 Montoya: O Motor de Engajamento (Ativação)
+
+> **Responsável:** Montoya
+> **Missão:** "Quebrar a apatia". Monitorar o caos legislativo, filtrar o que importa e transformar em conteúdo viral para trazer o usuário para a plataforma.
+
+## 🎯 Objetivo do Módulo
+O `montoya` não espera o usuário perguntar. Ele ativamente busca informações públicas, simplifica a linguagem (estilo "fofoca cívica") e prepara o terreno para o disparo de mensagens.
+
+---
+
+## 🎬 Exemplo Real
+
+Vídeo completo gerado automaticamente (roteiro + render em dois clipes Sora) a partir da lei municipal que prevê aumento do IPTU em Pindamonhangaba:
+
+[▶️ Assistir ao vídeo (MP4)](https://raw.githubusercontent.com/Ta-Certo-Isso/MonoRepoHackathon/montoya/Montoya/output/videos/sora/run%202/projeto_que_prev_aumentar_valor_do_iptu_de_pinda_d_final.mp4)
+
+---
+
+## 🛠 Nova Estrutura (Refatorada)
+
+O projeto foi refatorado para utilizar **FastAPI** e uma estrutura modular profissional, pronta para deploy no Render.
+
+```
+Montoya/
+├── src/
+│   ├── collectors/      # Coletores (Camara, Senado, ALESP, Municipal)
+│   ├── services/        # Orquestração e Geração de Conteúdo (TikTok + vídeos Sora)
+│   ├── models/          # Schemas Pydantic
+│   ├── core/            # Configuração e Logs
+│   ├── utils/           # Utilitários (Scraper Google)
+│   └── main.py          # App FastAPI
+├── tests/               # Testes Automatizados (Pytest)
+├── requirements.txt
+└── Procfile             # Configuração do Render
+```
+
+---
+
+## 🚀 Como Usar
+
+### Instalação
+
+1. Crie e ative o ambiente virtual:
+   ```bash
+   python -m venv venv
+   .\venv\Scripts\activate
+   ```
+
+2. Instale as dependências:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. Configure as variáveis de ambiente:
+   - Renomeie `.env.example` para `.env`
+   - Adicione suas chaves: `GOOGLE_SEARCH_API_KEY`, `GOOGLE_SEARCH_ENGINE_ID`, `OPENAI_API_KEY`, `AZURE_OPENAI_VIDEOS_ENDPOINT`, `AZURE_OPENAI_VIDEOS_API_KEY`
+
+### Executando a API
+
+```bash
+uvicorn src.main:app --reload
+```
+
+Acesse a documentação interativa em: `http://localhost:8000/docs`
+
+### CLI Profissional
+
+Os utilitários que antes ficavam soltos em `run_*.py` agora estão em um CLI unificado:
+
+```bash
+# 1. Coleta e grava no SQLite
+python -m src.cli collect --days-back 5 --limit 5
+
+# 2. Regenera roteiros aprovados
+python -m src.cli regenerate-scripts
+
+# 3. Visualiza o roteiro mais recente
+python -m src.cli print-script --id 42
+
+# 4. Renderiza vídeo completo (Sora) com base no script validado
+python -m src.cli generate-video --level municipal
+
+# 5. Teste rápido de prompt direto na Sora
+python -m src.cli test-sora --prompt "A video of a cat"
+```
+
+Todos os artefatos são salvos dentro de `Montoya/output/...` (scripts em `.json`/`.db`, vídeos em `videos/sora/run */`).
+
+### Executando Testes
+
+O projeto inclui testes automatizados reais que verificam a integração com as APIs externas.
+
+```bash
+pytest
+```
+
+---
+
+## 📊 Endpoints Principais
+
+- **`POST /collect`**: Dispara a coleta de todas as fontes.
+- **`POST /generate/tiktok`**: Gera um roteiro de TikTok para uma proposição.
+- **`POST /generate/video`**: Usa o Azure OpenAI (Sora) para renderizar até ~24s em dois clipes de 12s, salvando dentro de `Montoya/output/videos/`.
+
+### Revisando roteiros antes de renderizar
+
+- Use `POST /generate/tiktok` com a `Proposition` desejada: a resposta já traz o texto completo em `script`.
+- Todo roteiro salvo também fica no SQLite (`montoya.db`, tabela `scripts`). Basta abrir com `sqlite3` ou qualquer viewer para reaprovar/editá-lo antes de chamar `/generate/video`.
+
+### Saída de Arquivos
+
+Os vídeos gerados pelos testes ou scripts serão salvos automaticamente na pasta:
+`Montoya/output/videos/`
+
+---
+
+## 📝 Fontes de Dados
+
+- **Federal (Câmara):** API Dados Abertos da Câmara dos Deputados
+- **Federal (Senado):** Google Search (Notícias)
+- **Estadual (ALESP):** Google Search (Notícias)
+- **Municipal:** Google Search (Notícias do Vale do Paraíba)
+
