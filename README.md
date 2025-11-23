@@ -10,9 +10,9 @@ Uma plataforma integrada que **Ativa** o cidadão com notícias traduzidas para 
 
 Por fim, esses dados são utilizados para gerar indicadores de impacto que são enviados diretamente aos orgãos competentes, como: governos estaduais, municipais e senado federal **('src/app/3-Data-Analytics-Comunicator')**.
 
-Toda a malha de dados fica centralizada em um MongoDB hospedado em Azure Container Instances + Azure Files, garantindo histórico único das conversas do WhatsApp para alimentar o módulo ('src/app/3-Data-Analytics-Comunicator') e qualquer dashboard analítico futuro.
-
 ![relatorio_sentimento](https://github.com/user-attachments/assets/098b3021-5482-4826-a491-7f194cd8bf8b)
+
+Toda a malha de dados fica centralizada em um MongoDB hospedado em Azure Container Instances + Azure Files, garantindo histórico único das conversas do WhatsApp para alimentar o módulo ('src/app/3-Data-Analytics-Comunicator') e qualquer dashboard analítico futuro.
 
 ## Deploy ChatBot
 
