@@ -12,6 +12,8 @@ Uma plataforma integrada que **Ativa** o cidadão com notícias traduzidas para 
 
 Toda a malha de dados fica centralizada em um MongoDB hospedado em Azure Container Instances + Azure Files, garantindo histórico único das conversas do WhatsApp para alimentar o módulo 'src/app/3-Data-Analytics-Comunicator' e qualquer dashboard analítico futuro.
 
+![relatorio_sentimento](https://github.com/user-attachments/assets/098b3021-5482-4826-a491-7f194cd8bf8b)
+
 ## Deploy
 
 - **Bot (Nichols)**: publicado no Azure App Service (vide `infra/main.bicep` e `.github/workflows/ci-azure.yml`).
