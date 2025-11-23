@@ -8,7 +8,7 @@ O brasileiro médio não confia na política, não entende as leis e se sente im
 
 ## 💡 A Solução
 
-Uma plataforma integrada que **Ativa** o cidadão com notícias traduzidas, **Assiste** através de um chat interativo com IA no WhatsApp e **Ouve** o sentimento popular para gerar relatórios de impacto.
+Uma plataforma integrada que **Ativa** o cidadão com notícias traduzidas para um português "não jurídico" publicadas em redes sociais como tiktok e instagram e engaja o usuário a ir para o WhatsApp, Onde **Interage** através de um chat com IA e **Captura** o sentimento popular dos assuntos sobre Leis e Projetos governamentais e por fim, gerar indicadores de impacto que são enviados diretamente aos orgãos competentes como: governos estaduais, municipais e senado federal.
 
 Toda a malha de dados fica centralizada em um MongoDB hospedado em Azure Container Instances + Azure Files, garantindo histórico único das conversas do WhatsApp para alimentar o módulo Leli e qualquer dashboard analítico futuro.
 
