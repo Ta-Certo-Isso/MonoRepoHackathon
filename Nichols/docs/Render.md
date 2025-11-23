@@ -463,7 +463,7 @@ Private service
 
 -----
 
-## Configuração recomendada para o MVP (Nichols)
+## Configuração recomendada para o MVP (whatsappchatbot)
 
 - Root Directory: `Nichols`
 - Build Command: `pip install -r requirements.txt`

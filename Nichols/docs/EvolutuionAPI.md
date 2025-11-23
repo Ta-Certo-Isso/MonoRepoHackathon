@@ -509,9 +509,9 @@ Copy
   ]
 }
 -----
-## Atalho de setup para o MVP Nichols
+## Atalho de setup para o MVP whatsappchatbot
 
-Use este docker para testar o webhook Nichols localmente:
+Use este docker para testar o webhook whatsappchatbot localmente:
 
 ```
 docker run -d --name evolution_api -p 8080:8080 ^
@@ -525,4 +525,4 @@ docker run -d --name evolution_api -p 8080:8080 ^
 
 - Escaneie o QR em `http://localhost:8080/manager`.
 - Use o mesmo `AUTHENTICATION_API_KEY` no header `apikey` ao chamar `sendText`/`sendWhatsAppAudio`.
-- Se usar docker-compose, copie as mesmas variáveis para o `.env`.
+- Se usar docker-compose, copie as mesmas variï¿½veis para o `.env`.
