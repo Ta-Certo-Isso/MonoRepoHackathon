@@ -103,9 +103,9 @@ WEBHOOK_TOKEN=segredo-webhook
 ### Como rodar local
 
 ````
-cd Nichols
+cd src/app/2-ChatBot-WhatsApp
 pip install -r requirements.txt
-uvicorn Nichols.main:app --host 0.0.0.0 --port 8000 --reload
+uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 ````
 
 ### Webhook esperado
@@ -113,7 +113,7 @@ uvicorn Nichols.main:app --host 0.0.0.0 --port 8000 --reload
 - Endpoint: POST /webhook/evolution
 - Corpo: payload JSON do Evolution API (eventos MESSAGES_UPSERT) com remoteJid e texto/áudio. O bot ignora mensagens enviadas por ele mesmo (fromMe=true).
 - Resposta: envia texto + audio TTS para o mesmo numero via Evolution (/message/sendText/{instance} e /message/sendWhatsAppAudio/{instance}).
-- Memoria por sessao: historico persiste em SQLite (HISTORY_DB) por numero e é replicado no Mongo (`MONGO_*`) para o módulo **Leli** consumir dashboards.
+- Memoria por sessao: historico persiste em SQLite (HISTORY_DB) por numero e é replicado no Mongo (`MONGO_*`) para o módulo de analytics consumir dashboards.
 - RAG: ao iniciar, carrega .txt em DATA_DIR e monta Chroma para recuperar contexto.
 - STT: se chegar URL de audio, baixa, transcreve com Whisper e responde.
 - LLM: LangChain + ChatOpenAI com system prompt civico (sem nome) + contexto RAG + historico.
@@ -128,14 +128,14 @@ uvicorn Nichols.main:app --host 0.0.0.0 --port 8000 --reload
 ## Qualidade / testes
 
 - Crie a venv: `python -m venv .venv`
-- Instale deps: `.\.venv\Scripts\python -m pip install -r Nichols/requirements.txt -r Nichols/requirements-dev.txt`
-- Rode format/mypy: `.\.venv\Scripts\python -m black Nichols` e `.\.venv\Scripts\python -m mypy Nichols/main.py`
+- Instale deps: `.\.venv\Scripts\python -m pip install -r src/app/2-ChatBot-WhatsApp/requirements.txt -r src/app/2-ChatBot-WhatsApp/requirements-dev.txt`
+- Rode format/mypy: `.\.venv\Scripts\python -m black src/app/2-ChatBot-WhatsApp` e `.\.venv\Scripts\python -m mypy src/app/2-ChatBot-WhatsApp/main.py`
 - Exemplo de teste (set envs primeiro):  
-  `$env:OPENAI_API_KEY='test'; $env:EVOLUTION_BASE_URL='http://localhost'; $env:EVOLUTION_API_KEY='test'; $env:EVOLUTION_INSTANCE='instance'; .\\.venv\\Scripts\\python -m pytest Nichols/tests`
+  `$env:OPENAI_API_KEY='test'; $env:EVOLUTION_BASE_URL='http://localhost'; $env:EVOLUTION_API_KEY='test'; $env:EVOLUTION_INSTANCE='instance'; .\\.venv\\Scripts\\python -m pytest src/app/2-ChatBot-WhatsApp/tests`
 
 ## Deploy / IaC
 
-- Render Blueprint: `render.yaml` (rootDir Nichols, build `pip install -r requirements.txt`, start `uvicorn main:app --host 0.0.0.0 --port $PORT`, envs listadas).
+- Render Blueprint: `render.yaml` (rootDir `src/app/2-ChatBot-WhatsApp`, build `pip install -r requirements.txt`, start `uvicorn main:app --host 0.0.0.0 --port $PORT`, envs listadas).
 - GitHub Actions: `.github/workflows/ci-render.yml` (teste + deploy via Deploy Hook Render; configurar secret `RENDER_DEPLOY_HOOK_URL`).
 - Evolution local/VPS: `docker-compose.yml` + `.env.evolution` (copiar de `.env.evolution.example`).
 - Webhook do Evolution: apontar para `/webhook/evolution` do serviço no Render.

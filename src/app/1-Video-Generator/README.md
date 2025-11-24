@@ -1,6 +1,5 @@
-# 📢 Montoya: O Motor de Engajamento (Ativação)
+# 📢 Módulo 1 – Gerador de Vídeos (Ativação)
 
-> **Responsável:** Montoya
 > **Missão:** "Quebrar a apatia". Monitorar o caos legislativo, filtrar o que importa e transformar em conteúdo viral para trazer o usuário para a plataforma.
 
 ## 🎯 Objetivo do Módulo
@@ -12,7 +11,7 @@ O `montoya` não espera o usuário perguntar. Ele ativamente busca informações
 
 Vídeo completo gerado automaticamente (roteiro + render em dois clipes Sora) a partir da lei municipal que prevê aumento do IPTU em Pindamonhangaba:
 
-[▶️ Assistir ao vídeo (MP4)](https://raw.githubusercontent.com/Ta-Certo-Isso/MonoRepoHackathon/montoya/Montoya/output/videos/sora/run%202/projeto_que_prev_aumentar_valor_do_iptu_de_pinda_d_final.mp4)
+[▶️ Assistir ao vídeo (MP4)](https://raw.githubusercontent.com/Ta-Certo-Isso/MonoRepoHackathon/montoya/src/app/1-Video-Generator/output/videos/sora/run%202/projeto_que_prev_aumentar_valor_do_iptu_de_pinda_d_final.mp4)
 
 ---
 
@@ -21,7 +20,7 @@ Vídeo completo gerado automaticamente (roteiro + render em dois clipes Sora) a 
 O projeto foi refatorado para utilizar **FastAPI** e uma estrutura modular profissional, pronta para deploy no Render.
 
 ```
-Montoya/
+src/app/1-Video-Generator/
 ├── src/
 │   ├── collectors/      # Coletores (Camara, Senado, ALESP, Municipal)
 │   ├── services/        # Orquestração e Geração de Conteúdo (TikTok + vídeos Sora)
@@ -84,7 +83,7 @@ python -m src.cli generate-video --level municipal
 python -m src.cli test-sora --prompt "A video of a cat"
 ```
 
-Todos os artefatos são salvos dentro de `Montoya/output/...` (scripts em `.json`/`.db`, vídeos em `videos/sora/run */`).
+Todos os artefatos são salvos dentro de `src/app/1-Video-Generator/output/...` (scripts em `.json`/`.db`, vídeos em `videos/sora/run */`).
 
 ### Executando Testes
 
@@ -100,7 +99,7 @@ pytest
 
 - **`POST /collect`**: Dispara a coleta de todas as fontes.
 - **`POST /generate/tiktok`**: Gera um roteiro de TikTok para uma proposição.
-- **`POST /generate/video`**: Usa o Azure OpenAI (Sora) para renderizar até ~24s em dois clipes de 12s, salvando dentro de `Montoya/output/videos/`.
+- **`POST /generate/video`**: Usa o Azure OpenAI (Sora) para renderizar até ~24s em dois clipes de 12s, salvando dentro de `src/app/1-Video-Generator/output/videos/`.
 
 ### Revisando roteiros antes de renderizar
 
@@ -110,7 +109,7 @@ pytest
 ### Saída de Arquivos
 
 Os vídeos gerados pelos testes ou scripts serão salvos automaticamente na pasta:
-`Montoya/output/videos/`
+`src/app/1-Video-Generator/output/videos/`
 
 ---
 

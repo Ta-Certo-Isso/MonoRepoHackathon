@@ -11,7 +11,7 @@ Para manter o WhatsApp Chatbot no Azure, mas hospedar a Evolution API em um ambi
 2. Edite `.env.evolution` e ajuste:
    - `POSTGRES_*`: credenciais do banco (o compose já provisiona o Postgres).
    - `SERVER_URL`: URL pública onde a Evolution ficará acessível (use HTTPS).
-   - `AUTHENTICATION_API_KEY`: gere uma chave segura; use o mesmo valor em `EVOLUTION_API_KEY` no Nichols.
+   - `AUTHENTICATION_API_KEY`: gere uma chave segura; use o mesmo valor em `EVOLUTION_API_KEY` configurado no Chatbot WhatsApp.
    - `WEBHOOK_GLOBAL_URL`: mantenha apontando para `https://hackathonopenai-api.azurewebsites.net/webhook/evolution`.
 3. Suba os serviços (Postgres + Redis + Evolution):
    ```bash

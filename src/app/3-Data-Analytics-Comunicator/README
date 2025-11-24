@@ -1,10 +1,10 @@
-# 👂 Leli: A Ouvidoria Inteligente (Dados e Sentimento)
+# 👂 Módulo 3 – Ouvidoria Inteligente (Dados e Sentimento)
 
-> **Responsável:** Leli
+> **Missão:** "Dar poder ao cidadão". Provar para o usuário que a opinião dele não foi para o lixo, transformando conversas individuais em estatísticas de pressão pública.
 > **Missão:** "Dar poder ao cidadão". Provar para o usuário que a opinião dele não foi para o lixo, transformando conversas individuais em estatísticas de pressão pública.
 
 ## 🎯 Objetivo do Módulo
-O módulo `leli` escuta passivamente as conversas do `whatsappchatbot`, analisa o sentimento e categoriza as demandas. Ele alimenta o Dashboard e gera os "Relatórios de Impacto" para fechar o ciclo de feedback. Cada interação fica registrada em um MongoDB hospedado em Azure Container Instances (exposto para leitura pelo Leli e demais ferramentas) para consulta ou ETL próprios.
+O módulo de ouvidoria escuta passivamente as conversas do chatbot, analisa o sentimento e categoriza as demandas. Ele alimenta o dashboard e gera os "Relatórios de Impacto" para fechar o ciclo de feedback. Cada interação fica registrada em um MongoDB hospedado em Azure Container Instances (exposto para leitura pela própria ouvidoria e demais ferramentas) para consulta ou ETL próprios.
 
 ### 🔗 Conexão com Regras de Negócio
 * **Sentimento de Pertencimento:** O usuário precisa sentir que foi ouvido.
@@ -26,7 +26,7 @@ O módulo `leli` escuta passivamente as conversas do `whatsappchatbot`, analisa 
 ```mermaid
 sequenceDiagram
     participant Chat as whatsappchatbot (Chat Logs)
-    participant Worker as Leli Worker (Python)
+    participant Worker as Ouvidoria Worker (Python)
     participant DB as Banco de Dados
     participant Dash as Dashboard React
     participant User as Usuário Final

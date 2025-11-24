@@ -56,7 +56,7 @@ az deployment sub create \
 
 ## Evolution API gerenciada
 
-Quando `deployEvolutionService=true`, o template publica automaticamente um segundo App Service Linux (`evolutionWebAppName`) usando a imagem `atendai/evolution-api:latest`. Porém, versões recentes da Evolution ainda exigem um banco PostgreSQL/MySQL e Redis para executar as migrações Prisma — mesmo quando o Mongo é configurado. Caso não tenha esses recursos na assinatura, mantenha `deployEvolutionService=false` e execute a Evolution API em uma infraestrutura separada usando o `Nichols/evolution/docker-compose.yml`, que inclui Postgres + Redis conforme o guia oficial v2 ([instalação](https://doc.evolution-api.com/v2/pt/install/docker), [variáveis](https://doc.evolution-api.com/v2/pt/env)). Depois de subir o stack externo, use o mesmo `AUTHENTICATION_API_KEY` e `WEBHOOK_GLOBAL_URL` para integrar com o App Service do WhatsApp Chatbot.
+Quando `deployEvolutionService=true`, o template publica automaticamente um segundo App Service Linux (`evolutionWebAppName`) usando a imagem `atendai/evolution-api:latest`. Porém, versões recentes da Evolution ainda exigem um banco PostgreSQL/MySQL e Redis para executar as migrações Prisma — mesmo quando o Mongo é configurado. Caso não tenha esses recursos na assinatura, mantenha `deployEvolutionService=false` e execute a Evolution API em uma infraestrutura separada usando o `src/app/2-ChatBot-WhatsApp/evolution/docker-compose.yml`, que inclui Postgres + Redis conforme o guia oficial v2 ([instalação](https://doc.evolution-api.com/v2/pt/install/docker), [variáveis](https://doc.evolution-api.com/v2/pt/env)). Depois de subir o stack externo, use o mesmo `AUTHENTICATION_API_KEY` e `WEBHOOK_GLOBAL_URL` para integrar com o App Service do WhatsApp Chatbot.
 
 ## MongoDB executando em container
 
@@ -68,7 +68,7 @@ Em vez do Cosmos DB, o template agora provisiona automaticamente:
 
 O connection string dessa instância é aplicado automaticamente:
 
-- Ao App Service do WhatsApp Chatbot (`MONGO_CONNECTION_URI`, `MONGO_DB_NAME`, `MONGO_COLLECTION_NAME`), permitindo que o módulo **Leli** leia os dados depois.
+- Ao App Service do WhatsApp Chatbot (`MONGO_CONNECTION_URI`, `MONGO_DB_NAME`, `MONGO_COLLECTION_NAME`), permitindo que o módulo de analytics (ouvidoria) leia os dados depois.
 - (Opcional) Ao App Service da Evolution API, caso `deployEvolutionService=true`, seguindo as recomendações de Mongo opcional descritas na [documentação oficial](https://doc.evolution-api.com/v1/pt/optional-resources/mongo-db).
 
 > 💡 Proteja esse endpoint usando restrições de IP no App Service / firewall corporativo ou exponha o container dentro de uma VNet, conforme a maturidade do ambiente.
